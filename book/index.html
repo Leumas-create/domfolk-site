@@ -206,7 +206,8 @@ h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px;
 
 /* day carousel */
 .papel2 { background: var(--papel2); }
-.trilho { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 30px 22px 22px; margin: 0 -22px; scrollbar-width: thin; }
+.trilho { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 30px 22px 22px; margin: 0 -22px; scrollbar-width: none; -ms-overflow-style: none; }
+.trilho::-webkit-scrollbar { display: none; }
 .trilho figure { flex: 0 0 min(70vw, 290px); scroll-snap-align: start; }
 .trilho img { border-radius: 3px; box-shadow: 0 14px 30px rgba(0,0,0,.2); transition: transform .3s; }
 .trilho figure:hover img { transform: translateY(-6px) rotate(-.6deg); }
