@@ -11,127 +11,252 @@
 <meta property="og:url" content="https://domfolk.com/book/">
 <meta property="og:type" content="product">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f0e0d">
 <link rel="icon" href="img/dF.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/SourceSerif4.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face { font-family: 'Source Serif'; src: url(../fonts/SourceSerif4.woff2) format("woff2"); font-weight: 200 900; font-display: swap; }
 @font-face { font-family: 'Inter'; src: url(../fonts/Inter.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
 :root { --papel: #f3eee4; --papel2: #ebe4d6; --tinta: #161513; --suave: #7a7362; --fio: #d6cdbb;
-  --noite: #0f0e0d; --noite2: #1c1a17; --amarelo: #FFD000; --lapis: #E8432E;
+  --noite: #0f0e0d; --noite2: #1c1a17; --cinza: #9b9384; --amarelo: #FFD000; --lapis: #E8432E;
   --serifa: 'Source Serif', Georgia, serif; --mono: 'Inter', 'Segoe UI', system-ui, sans-serif; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { background: var(--papel); color: var(--tinta); font: 18px/1.55 var(--serifa); -webkit-font-smoothing: antialiased; }
-img { display: block; max-width: 100%; height: auto; }
+body { background: var(--papel); color: var(--tinta); font: 18px/1.55 var(--serifa); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
 a { color: inherit; }
-.mono { font-family: var(--mono); font-size: 13px; letter-spacing: .02em; color: var(--suave); }
-.wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
-section { padding: 72px 0; }
-h1, h2, h3 { font-weight: 600; line-height: 1.12; letter-spacing: -.01em; }
-h2 { font-size: clamp(30px, 5vw, 44px); margin: 6px 0 18px; }
-.lead { font-size: clamp(19px, 2.4vw, 22px); color: #3a3732; max-width: 640px; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+section { padding: 88px 0; position: relative; }
+h1, h2, h3 { font-weight: 600; line-height: 1.1; letter-spacing: -.015em; }
+h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px; }
+.lead { font-size: clamp(19px, 2.3vw, 22px); color: #3a3732; max-width: 640px; }
+.rotulo { display: inline-flex; align-items: center; gap: 10px; font: 600 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--suave); }
+.rotulo b { font-weight: 600; color: var(--tinta); border: 1.5px solid currentColor; border-radius: 3px; padding: 2px 6px; letter-spacing: .06em; }
+.escuro { background: var(--noite); color: var(--papel); }
+.escuro .lead { color: #cfc8b8; }
+.escuro .rotulo { color: var(--cinza); }
+.escuro .rotulo b { color: var(--amarelo); }
 
-/* top bar */
-.barra { position: sticky; top: 0; z-index: 10; background: rgba(15,14,13,.94); backdrop-filter: blur(6px); color: var(--papel); }
-.barra .wrap { display: flex; align-items: center; justify-content: space-between; height: 54px; }
-.barra .marca { display: flex; align-items: center; gap: 10px; font: 500 14px var(--mono); text-decoration: none; }
-.barra .marca img { width: 26px; filter: invert(1); }
-.barra .comprar { padding: 8px 16px; font-size: 14px; }
+/* hand-drawn red mark */
+.marca-lapis { position: relative; white-space: nowrap; }
+.marca-lapis svg { position: absolute; left: -9%; top: -20%; width: 122%; height: 140%; overflow: visible; pointer-events: none; }
+.marca-lapis path { fill: none; stroke: var(--lapis); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 1.2s ease .2s; }
+.visto .marca-lapis path { stroke-dashoffset: 0; }
 
-/* buttons + price */
-.comprar { display: inline-block; background: var(--amarelo); color: var(--tinta); font: 700 17px var(--mono); text-decoration: none;
-  padding: 16px 30px; border-radius: 6px; transition: transform .15s; }
-.comprar:hover { transform: translateY(-2px); }
-.preco { display: flex; align-items: baseline; gap: 12px; margin: 22px 0 14px; font-family: var(--mono); }
-.preco .agora { font-size: 40px; font-weight: 700; }
-.preco .antes { font-size: 22px; color: var(--suave); text-decoration: line-through; }
-.preco .ate { font-size: 14px; color: var(--lapis); font-weight: 600; }
-.escuro .preco .antes { color: #9b9384; }
-.nota-compra { font: 13px/1.5 var(--mono); color: var(--suave); margin-top: 12px; }
-.escuro .nota-compra { color: #9b9384; }
+/* buttons */
+.comprar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--amarelo); color: var(--tinta);
+  font: 700 17px var(--mono); text-decoration: none; padding: 17px 30px; border-radius: 6px; transition: transform .15s, box-shadow .15s; box-shadow: 0 6px 0 #b39200; }
+.comprar:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #b39200; }
+.comprar:active { transform: translateY(4px); box-shadow: 0 2px 0 #b39200; }
+.comprar .seta { transition: transform .15s; }
+.comprar:hover .seta { transform: translateX(4px); }
+.preco { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin: 26px 0 18px; font-family: var(--mono); }
+.preco .agora { font-size: 46px; font-weight: 700; letter-spacing: -.02em; }
+.preco .antes { font-size: 22px; color: var(--suave); text-decoration: line-through; text-decoration-color: var(--lapis); text-decoration-thickness: 2px; }
+.preco .ate { width: 100%; font-size: 13px; font-weight: 600; color: var(--lapis); letter-spacing: .02em; }
+.escuro .preco .antes { color: var(--cinza); }
+.escuro .preco .ate { color: #ff7a66; }
+.nota-compra { font: 13px/1.6 var(--mono); color: var(--suave); margin-top: 16px; }
+.escuro .nota-compra { color: var(--cinza); }
+
+/* top bar + launch strip */
+.faixa { background: var(--amarelo); color: var(--tinta); font: 600 13px var(--mono); text-align: center; padding: 8px 16px; }
+.faixa[hidden] { display: none; }
+.barra { position: sticky; top: 0; z-index: 20; background: rgba(15,14,13,.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: var(--papel); border-bottom: 1px solid #24211d; }
+.barra .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.barra .logo { display: flex; align-items: center; gap: 10px; font: 600 14px var(--mono); text-decoration: none; }
+.barra .logo img { width: 26px; filter: invert(1); }
+.barra .comprar { padding: 9px 16px; font-size: 14px; box-shadow: none; }
 
 /* hero */
-.escuro { background: var(--noite); color: var(--papel); }
-.heroi { padding: 56px 0 80px; }
-.heroi .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-.heroi h1 { font-size: clamp(40px, 6.4vw, 66px); margin: 12px 0 18px; }
+.heroi { padding: 72px 0 96px; overflow: hidden; }
+.heroi::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, transparent calc(33.33% - .5px), #ffffff0d calc(33.33% - .5px), #ffffff0d calc(33.33% + .5px), transparent calc(33.33% + .5px), transparent calc(66.66% - .5px), #ffffff0d calc(66.66% - .5px), #ffffff0d calc(66.66% + .5px), transparent calc(66.66% + .5px)),
+              linear-gradient(0deg, transparent calc(33.33% - .5px), #ffffff0d calc(33.33% - .5px), #ffffff0d calc(33.33% + .5px), transparent calc(33.33% + .5px), transparent calc(66.66% - .5px), #ffffff0d calc(66.66% - .5px), #ffffff0d calc(66.66% + .5px), transparent calc(66.66% + .5px)); }
+.heroi .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; position: relative; }
+.hud { display: flex; align-items: center; gap: 14px; font: 600 12px var(--mono); letter-spacing: .12em; color: var(--cinza); text-transform: uppercase; }
+.rec { display: inline-flex; align-items: center; gap: 6px; color: var(--amarelo); }
+.rec::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--lapis); animation: piscar 1.4s steps(1) infinite; }
+@keyframes piscar { 50% { opacity: 0; } }
+.heroi h1 { font-size: clamp(44px, 6.6vw, 74px); margin: 18px 0 20px; }
 .heroi h1 em { font-style: normal; color: var(--amarelo); }
-.heroi .lead { color: #cfc8b8; }
-.heroi .mono { color: var(--amarelo); }
-.capa { position: relative; max-width: 420px; justify-self: center; }
-.capa img { border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,.6), 0 0 0 1px #2a2723; }
-.selos { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 22px; font: 13px var(--mono); color: #9b9384; }
-.selos span::before { content: '■ '; color: var(--amarelo); font-size: 9px; vertical-align: 2px; }
+.selos { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 26px; font: 13px var(--mono); color: var(--cinza); }
+.selos span { display: inline-flex; align-items: center; gap: 8px; }
+.selos span::before { content: ''; width: 7px; height: 7px; background: var(--amarelo); }
+.pilha { position: relative; width: min(100%, 400px); justify-self: center; aspect-ratio: 2 / 3; }
+.pilha img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 3px; box-shadow: 0 30px 60px rgba(0,0,0,.6); transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.pilha .p1 { transform: rotate(7deg) translate(18%, 3%); filter: brightness(.7); }
+.pilha .p2 { transform: rotate(-6deg) translate(-16%, 4%); filter: brightness(.75); }
+.pilha .capa { box-shadow: 0 30px 70px rgba(0,0,0,.75), 0 0 0 1px #2c2925; }
+.pilha:hover .p1 { transform: rotate(10deg) translate(26%, 2%); }
+.pilha:hover .p2 { transform: rotate(-9deg) translate(-24%, 3%); }
+.af { position: absolute; inset: -22px; pointer-events: none; z-index: 2; }
+.af i { position: absolute; width: 34px; height: 34px; border: 3px solid var(--amarelo); opacity: 0; transform: scale(1.5); animation: foco .7s cubic-bezier(.2,.8,.2,1) .5s forwards; }
+.af i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.af i:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.af i:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.af i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+@keyframes foco { to { opacity: 1; transform: scale(1); } }
+.af span { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); font: 700 11px var(--mono); letter-spacing: .14em; color: var(--amarelo); opacity: 0; animation: aparecer .3s 1.2s forwards; white-space: nowrap; }
+@keyframes aparecer { to { opacity: 1; } }
 
 /* hook */
 .gancho { text-align: center; }
-.gancho p.grande { font-size: clamp(26px, 4vw, 38px); line-height: 1.25; max-width: 760px; margin: 0 auto; }
-.gancho p.grande b { background: linear-gradient(transparent 62%, var(--amarelo) 62%); font-weight: 600; }
-.gancho .lead { margin: 22px auto 0; }
+.gancho .grande { font-size: clamp(28px, 4.4vw, 44px); line-height: 1.22; max-width: 820px; margin: 18px auto 0; }
+.gancho .lead { margin: 26px auto 0; }
+
+/* demo */
+.demo .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+.quadro { position: relative; background: #fff; padding: 12px; border-radius: 2px; box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+.foto { position: relative; overflow: hidden; aspect-ratio: 1; background: #111; user-select: none; -webkit-user-select: none; touch-action: pan-y; }
+.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.foto .sem { clip-path: inset(0 0 0 var(--corte, 100%)); }
+.foto svg.percurso { position: absolute; inset: 0; width: 100%; height: 100%; }
+.percurso polyline { fill: none; stroke: var(--amarelo); stroke-width: .5; stroke-dasharray: 1.2 1.2; opacity: 0; transition: opacity .4s; }
+.percurso g { opacity: 0; transform-origin: center; transform-box: fill-box; transform: scale(.2); transition: opacity .3s, transform .4s cubic-bezier(.2,1.6,.4,1); }
+.percurso circle { fill: var(--amarelo); stroke: #111; stroke-width: .35; }
+.percurso text { font: 700 3.4px var(--mono); fill: #111; text-anchor: middle; dominant-baseline: central; }
+.mostrando .percurso polyline { opacity: 1; }
+.percurso g.on { opacity: 1; transform: scale(1); }
+.alca { position: absolute; top: 0; bottom: 0; left: var(--corte, 100%); width: 3px; margin-left: -1.5px; background: var(--amarelo); opacity: 0; transition: opacity .3s; cursor: ew-resize; }
+.alca::after { content: '⟷'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border-radius: 50%; background: var(--amarelo); color: var(--tinta); font: 700 18px/40px var(--mono); text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.4); }
+.comparando .alca { opacity: 1; }
+.etq { position: absolute; top: 10px; font: 700 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; padding: 4px 8px; border-radius: 3px; opacity: 0; transition: opacity .3s; }
+.etq.com { left: 10px; background: var(--amarelo); color: var(--tinta); }
+.etq.sem2 { right: 10px; background: #fff; color: var(--tinta); }
+.comparando .etq { opacity: 1; }
+.creditinho { margin-top: 10px; font: 11px var(--mono); color: var(--suave); }
+.passos { counter-reset: p; }
+.passo { border-top: 1px solid #2c2925; padding: 20px 0; }
+.passo h3 { font-size: 24px; margin-bottom: 8px; display: flex; gap: 12px; align-items: baseline; }
+.passo h3::before { counter-increment: p; content: counter(p); font: 700 13px var(--mono); color: var(--tinta); background: var(--amarelo); width: 24px; height: 24px; border-radius: 50%; display: inline-grid; place-items: center; flex: none; transform: translateY(-3px); }
+.passo p { color: #cfc8b8; font-size: 17px; }
+.passo .acao { margin-top: 14px; font: 700 14px var(--mono); color: var(--amarelo); border: 1.5px solid var(--amarelo); border-radius: 5px; padding: 10px 16px; transition: background .15s, color .15s; }
+.passo .acao:hover, .passo .acao[aria-pressed="true"] { background: var(--amarelo); color: var(--tinta); }
+.legenda-percurso { list-style: none; margin-top: 12px; display: grid; gap: 6px; }
+.legenda-percurso li { display: none; gap: 10px; font-size: 16px; color: #cfc8b8; opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s; }
+.mostrando-leg .legenda-percurso li { display: flex; }
+.legenda-percurso li.on { opacity: 1; transform: none; }
+.legenda-percurso b { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--amarelo); color: var(--tinta); font: 700 12px/22px var(--mono); text-align: center; }
+.fecho-demo { margin-top: 22px; font-size: 20px; }
+.fecho-demo b { color: var(--amarelo); font-weight: 600; }
+
+/* 16 days grid */
+.contador { font: 700 13px var(--mono); letter-spacing: .1em; color: var(--suave); }
+.contador b { color: var(--lapis); }
+.grade { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 36px; list-style: none; }
+.grade li { position: relative; background: var(--noite); color: var(--papel); border-radius: 4px; overflow: hidden; aspect-ratio: 1; }
+.grade img { width: 100%; height: 100%; object-fit: cover; opacity: .55; filter: grayscale(.4); transition: opacity .35s, filter .35s, transform .6s; }
+.grade li:hover img, .grade li.visto img { opacity: .8; filter: none; }
+.grade li:hover img { transform: scale(1.05); }
+.grade .cab { position: absolute; top: 10px; left: 12px; right: 12px; display: flex; justify-content: space-between; align-items: center; font: 700 13px var(--mono); }
+.grade .cab svg { width: 26px; height: 26px; color: var(--amarelo); filter: drop-shadow(0 1px 2px #000a); }
+.grade .nome { position: absolute; left: 12px; right: 12px; bottom: 10px; font-size: 18px; font-weight: 600; line-height: 1.15; text-shadow: 0 1px 8px #000; }
+.grade li::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 45%, #000c); pointer-events: none; }
+.grade .cab, .grade .nome { z-index: 1; }
 
 /* day carousel */
-.dia { background: var(--papel2); }
-.trilho { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 26px 22px 18px; margin: 0 -22px; }
-.trilho figure { flex: 0 0 min(72vw, 300px); scroll-snap-align: start; }
-.trilho img { border-radius: 3px; box-shadow: 0 10px 26px rgba(0,0,0,.18); }
-.trilho figcaption { margin-top: 12px; font-size: 16px; }
-.trilho figcaption b { display: block; font: 600 13px var(--mono); color: var(--suave); margin-bottom: 2px; }
-.dica-arraste { font: 13px var(--mono); color: var(--suave); }
-
-/* 16 days */
-.dias { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 40px; margin-top: 30px; list-style: none; }
-.dias li { display: grid; grid-template-columns: 38px 1fr; gap: 4px 10px; padding: 14px 0; border-top: 1px solid var(--fio); }
-.dias .n { font: 600 14px var(--mono); color: var(--suave); padding-top: 4px; }
-.dias b { font-size: 19px; font-weight: 600; }
-.dias small { grid-column: 2; font-size: 15px; color: var(--suave); }
+.papel2 { background: var(--papel2); }
+.trilho { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 30px 22px 22px; margin: 0 -22px; scrollbar-width: thin; }
+.trilho figure { flex: 0 0 min(70vw, 290px); scroll-snap-align: start; }
+.trilho img { border-radius: 3px; box-shadow: 0 14px 30px rgba(0,0,0,.2); transition: transform .3s; }
+.trilho figure:hover img { transform: translateY(-6px) rotate(-.6deg); }
+.trilho figcaption { margin-top: 14px; font-size: 16px; color: #3a3732; }
+.trilho figcaption b { display: flex; align-items: center; gap: 8px; font: 700 13px var(--mono); color: var(--tinta); margin-bottom: 4px; }
+.trilho figcaption b i { font-style: normal; width: 22px; height: 22px; border-radius: 50%; background: var(--amarelo); display: grid; place-items: center; font-size: 12px; }
+.dica { font: 13px var(--mono); color: var(--suave); }
 
 /* inside */
-.dentro { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 34px; }
-.dentro figure img { border-radius: 3px; box-shadow: 0 10px 26px rgba(0,0,0,.16); }
-.dentro figcaption { margin-top: 12px; font-size: 16px; }
-.dentro figcaption b { display: block; font-size: 19px; }
-.lista { list-style: none; margin-top: 34px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 40px; }
-.lista li { padding-left: 26px; position: relative; }
-.lista li::before { content: ''; position: absolute; left: 0; top: 9px; width: 12px; height: 12px; border: 2px solid var(--lapis); border-radius: 50%; }
+.dentro { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+.dentro figure img { border-radius: 3px; box-shadow: 0 14px 30px rgba(0,0,0,.16); }
+.dentro figcaption { margin-top: 14px; font-size: 16px; color: #3a3732; }
+.dentro figcaption b { display: block; font-size: 21px; color: var(--tinta); margin-bottom: 2px; }
+.lista { list-style: none; margin-top: 44px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 44px; }
+.lista li { padding-left: 30px; position: relative; }
+.lista li::before { content: ''; position: absolute; left: 0; top: 6px; width: 14px; height: 14px; border: 2px solid var(--lapis); border-radius: 50%; transform: rotate(-12deg) scaleX(1.25); }
 
 /* format */
-.formato { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 30px; }
-.formato div { background: #fff8; border: 1px solid var(--fio); border-radius: 6px; padding: 22px; }
-.formato h3 { font-size: 21px; margin-bottom: 8px; }
+.formato { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 36px; }
+.formato div { background: #fffaf2; border: 1px solid var(--fio); border-radius: 8px; padding: 26px; }
+.formato svg { width: 40px; height: 40px; margin-bottom: 14px; }
+.formato h3 { font-size: 22px; margin-bottom: 8px; }
 .formato p { font-size: 16px; color: #3a3732; }
 
+/* note */
+.nota { text-align: center; }
+.nota blockquote { font-size: clamp(30px, 4.6vw, 48px); line-height: 1.18; max-width: 760px; margin: 22px auto 0; font-weight: 500; }
+.nota blockquote::before, .nota blockquote::after { color: var(--amarelo); }
+.nota blockquote::before { content: '“'; }
+.nota blockquote::after { content: '”'; }
+.assina { display: inline-flex; align-items: center; gap: 12px; margin-top: 26px; font: 600 14px var(--mono); color: var(--cinza); }
+.assina img { width: 34px; filter: invert(1); }
+.nota p.lead { margin: 22px auto 0; }
+
 /* faq */
-.faq details { border-top: 1px solid var(--fio); padding: 18px 0; }
-.faq details:last-child { border-bottom: 1px solid var(--fio); }
-.faq summary { font-size: 20px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
-.faq summary::after { content: '+'; font-family: var(--mono); color: var(--suave); }
-.faq details[open] summary::after { content: '–'; }
+.faq details { border-top: 1px solid var(--fio); padding: 20px 0; }
+.faq details:last-of-type { border-bottom: 1px solid var(--fio); }
+.faq summary { font-size: 21px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; font: 400 26px/1 var(--mono); color: var(--suave); transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
 .faq details p { margin-top: 10px; color: #3a3732; max-width: 720px; }
 
 /* final */
-.final { text-align: center; }
+.final { text-align: center; overflow: hidden; }
 .final .preco { justify-content: center; }
-.final img.mini { width: 180px; margin: 0 auto 26px; border-radius: 3px; box-shadow: 0 20px 40px rgba(0,0,0,.6); }
-footer { background: var(--noite); color: #9b9384; font: 13px/1.6 var(--mono); padding: 28px 0 40px; border-top: 1px solid #2a2723; }
+.final .preco .ate { text-align: center; }
+.final .mini { width: 190px; margin: 0 auto 30px; position: relative; }
+.final .mini img { border-radius: 3px; box-shadow: 0 24px 50px rgba(0,0,0,.7); }
+.final .mini .af { inset: -16px; }
+.final .mini .af i { width: 26px; height: 26px; animation: none; opacity: 1; transform: none; }
+.final h2 { margin-left: auto; margin-right: auto; }
+.relogio { display: flex; justify-content: center; gap: 10px; margin: 6px 0 8px; font-family: var(--mono); }
+.relogio[hidden] { display: none; }
+.relogio div { background: var(--noite2); border: 1px solid #2c2925; border-radius: 6px; padding: 10px 12px; min-width: 66px; }
+.relogio b { display: block; font-size: 26px; color: var(--amarelo); }
+.relogio span { font-size: 11px; letter-spacing: .1em; color: var(--cinza); text-transform: uppercase; }
+footer { background: var(--noite); color: var(--cinza); font: 13px/1.6 var(--mono); padding: 28px 0 100px; border-top: 1px solid #24211d; }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
 
-@media (max-width: 760px) {
+/* mobile buy bar */
+.barra-compra { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: none; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: rgba(15,14,13,.96); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: var(--papel); border-top: 1px solid #2c2925; transform: translateY(110%); transition: transform .3s; }
+.barra-compra.on { transform: none; }
+.barra-compra .p { font: 700 20px var(--mono); }
+.barra-compra .p s { font-size: 14px; color: var(--cinza); margin-left: 6px; font-weight: 400; }
+.barra-compra .p small { display: block; font: 600 11px var(--mono); color: #ff7a66; }
+.barra-compra .comprar { padding: 13px 20px; font-size: 15px; box-shadow: none; }
+
+/* reveal */
+.revela { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s; }
+.revela.visto { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .revela, .af i, .af span { opacity: 1; transform: none; } .marca-lapis path { stroke-dashoffset: 0; } }
+
+@media (max-width: 820px) {
   body { font-size: 17px; }
-  section { padding: 56px 0; }
-  .heroi { padding: 34px 0 60px; }
-  .heroi .wrap { grid-template-columns: 1fr; gap: 34px; }
-  .capa { max-width: 270px; order: -1; }
-  .dias, .lista, .dentro, .formato { grid-template-columns: 1fr; }
-  .dentro { gap: 34px; }
-  .comprar { display: block; text-align: center; }
-  .barra .comprar { display: inline-block; }
+  section { padding: 64px 0; }
+  .heroi { padding: 40px 0 72px; }
+  .heroi .wrap, .demo .wrap { grid-template-columns: 1fr; gap: 44px; }
+  .pilha { width: 62%; order: -1; margin-top: 18px; }
+  .grade { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .grade .nome { font-size: 15px; }
+  .grade .cab svg { width: 22px; height: 22px; }
+  .lista, .dentro, .formato { grid-template-columns: 1fr; }
+  .dentro { gap: 40px; }
+  .heroi .comprar, .final .comprar { width: 100%; }
+  .barra-compra { display: flex; }
+  .barra .comprar { display: none; }
 }
 </style>
 </head>
 <body>
 
+<div class="faixa" data-faixa hidden></div>
 <header class="barra">
   <div class="wrap">
-    <a class="marca" href="#topo"><img src="img/dF.svg" alt="">@domfolk</a>
+    <a class="logo" href="#topo"><img src="img/dF.svg" alt="">@domfolk</a>
     <a class="comprar" href="#" data-comprar>Get the book</a>
   </div>
 </header>
@@ -139,104 +264,160 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 <section class="escuro heroi" id="topo">
   <div class="wrap">
     <div>
-      <p class="mono">A 16-day photo book by @domfolk</p>
+      <div class="hud"><span>Vol. 1</span><span class="rec">Rec</span><span>Tricks 00/16</span></div>
       <h1>16 Tricks Your Eye <em>Never</em> Notices</h1>
-      <p class="lead">How the most famous photos steer your eye, and how to use the same tricks with your phone.</p>
+      <p class="lead">How the most famous photos steer your eye, and how to use the same tricks with the phone in your pocket.</p>
       <div class="preco" data-preco></div>
-      <a class="comprar" href="#" data-comprar>Get the book</a>
-      <p class="nota-compra">Instant PDF download · Phone, tablet or computer · Secure checkout by Gumroad</p>
+      <a class="comprar" href="#" data-comprar>Get the book <span class="seta">→</span></a>
+      <p class="nota-compra">Instant PDF download · Secure checkout by Gumroad</p>
       <div class="selos"><span>112 pages</span><span>16 real photographs</span><span>10 minutes a day</span></div>
     </div>
-    <div class="capa"><img src="img/capa.jpg" width="900" height="1350" alt="Cover of 16 Tricks Your Eye Never Notices"></div>
+    <div class="pilha">
+      <img class="p1" src="img/caso8_2.jpg" width="900" height="1350" alt="">
+      <img class="p2" src="img/caso3_3.jpg" width="900" height="1350" alt="">
+      <img class="capa" src="img/capa.jpg" width="900" height="1350" alt="Cover of 16 Tricks Your Eye Never Notices">
+      <div class="af" aria-hidden="true"><i></i><i></i><i></i><i></i><span>AF LOCKED</span></div>
+    </div>
   </div>
 </section>
 
 <section class="gancho">
-  <div class="wrap">
-    <p class="mono">Before you scroll on</p>
-    <p class="grande" style="margin-top:14px">Think of the last photo that stopped your thumb. You think you chose where to look. <b>You didn't. A photographer did.</b></p>
-    <p class="lead">Sometimes a hundred years ago, with tricks so simple nobody notices them: a line, a shadow, a color, a face that looks back. This book shows you all sixteen, one a day. Once you see them, you can't stop seeing them.</p>
+  <div class="wrap revela">
+    <span class="rotulo">Before you scroll on</span>
+    <p class="grande">Think of the last photo that stopped your thumb. You think you chose where to look. <span class="marca-lapis">You didn't.<svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M12,34 C10,10 70,4 120,6 C175,8 196,22 190,38 C184,54 120,58 70,56 C30,54 6,46 14,28 C18,20 30,14 44,12"/></svg></span> A photographer did.</p>
+    <p class="lead">Sometimes a hundred years ago, with tricks so simple nobody notices them: a line, a shadow, a color, a face that looks back. Once you see them, you can't stop seeing them.</p>
   </div>
 </section>
 
-<section class="dia">
+<section class="escuro demo" id="demo">
   <div class="wrap">
-    <p class="mono">What one day looks like</p>
-    <h2>Five pages. Ten minutes. One trick you'll never unsee.</h2>
-    <p class="lead">Every day follows the same path, so you always know where you are.</p>
-    <div class="trilho">
-      <figure><img src="img/caso1_1.jpg" width="900" height="1350" loading="lazy" alt="Day 1 opening page"><figcaption><b>1 · The question</b>A famous photo and something you didn't notice.</figcaption></figure>
-      <figure><img src="img/caso8_2.jpg" width="900" height="1350" loading="lazy" alt="Eye path page"><figcaption><b>2 · Where your eye travels</b>The exact path your eye took, numbered, and the rule in one line.</figcaption></figure>
-      <figure><img src="img/caso3_3.jpg" width="900" height="1350" loading="lazy" alt="Details page"><figcaption><b>3 · The details</b>What hides in the corners, and the real story behind the picture.</figcaption></figure>
-      <figure><img src="img/caso1_4.jpg" width="900" height="1350" loading="lazy" alt="Test and mission page"><figcaption><b>4 · Test the trick</b>The same photo with the trick removed. Then a mission for your phone.</figcaption></figure>
-      <figure><img src="img/caso4_5.jpg" width="900" height="1350" loading="lazy" alt="Notebook page"><figcaption><b>5 · Your notebook</b>Write the rule, say it in your words, sketch it, shoot it.</figcaption></figure>
+    <div class="revela">
+      <div class="quadro">
+        <div class="foto" data-foto>
+          <img src="img/demo.jpg" width="1100" height="1100" alt="In the waiting room of the Union Station, Chicago, 1943, by Jack Delano">
+          <img class="sem" src="img/demo_sem.jpg" width="1100" height="1100" alt="">
+          <svg class="percurso" viewBox="0 0 100 100" aria-hidden="true" data-percurso></svg>
+          <span class="etq com">With the trick</span><span class="etq sem2">Trick removed</span>
+          <div class="alca" data-alca></div>
+        </div>
+      </div>
+      <p class="creditinho">In the waiting room of the Union Station · Jack Delano · Chicago, 1943 · Library of Congress</p>
     </div>
-    <p class="dica-arraste">Swipe →</p>
+    <div class="passos revela">
+      <span class="rotulo"><b>Day 08</b> Try it now</span>
+      <h2>Your eye was just steered</h2>
+      <div class="passo">
+        <h3>Where did your eye land first?</h3>
+        <p>Be honest. Then let the book show you the path it took.</p>
+        <button class="acao" data-mostrar aria-pressed="false">Show me the path</button>
+        <ol class="legenda-percurso" data-legenda></ol>
+      </div>
+      <div class="passo">
+        <h3>Now take the trick away</h3>
+        <p>Same photo, light flattened. Drag the handle across the picture.</p>
+        <button class="acao" data-comparar aria-pressed="false">Remove the trick</button>
+      </div>
+      <p class="fecho-demo">The two men sink back into the crowd. <b>That was Day 8. There are 15 more.</b></p>
+    </div>
   </div>
 </section>
 
-<section>
+<section id="dias">
   <div class="wrap">
-    <p class="mono">The 16 days</p>
-    <h2>Sixteen tricks, sixteen photographs you already know</h2>
-    <ol class="dias">
-      <li><span class="n">01</span><b>The triangle</b><small>Pelé carried off after the 1970 World Cup final</small></li>
-      <li><span class="n">02</span><b>Lines that point</b><small>A welder in a Chicago freight yard, 1943</small></li>
-      <li><span class="n">03</span><b>The diagonal</b><small>The V-J Day kiss in Times Square, 1945</small></li>
-      <li><span class="n">04</span><b>The one who looks back</b><small>Feynman and Oppenheimer at Los Alamos</small></li>
-      <li><span class="n">05</span><b>The frame inside the frame</b><small>Princess Elizabeth as a wartime mechanic, 1945</small></li>
-      <li><span class="n">06</span><b>The picture inside the picture</b><small>Buzz Aldrin on the Moon, 1969</small></li>
-      <li><span class="n">07</span><b>One dark shape</b><small>Churchill on a battleship deck, 1941 · solo day, no arrows</small></li>
-      <li><span class="n">08</span><b>Light as a spotlight</b><small>Chicago's Union Station, 1943</small></li>
-      <li><span class="n">09</span><b>Pattern and scale</b><small>Wall Street by Paul Strand, 1915</small></li>
-      <li><span class="n">10</span><b>One color rules</b><small>The Emir of Bukhara in early color, 1911</small></li>
-      <li><span class="n">11</span><b>The center seat</b><small>The Big Three at Yalta, 1945</small></li>
-      <li><span class="n">12</span><b>The heavier half</b><small>Cruyff and Beckenbauer, 1974 World Cup final</small></li>
-      <li><span class="n">13</span><b>Thirds, not halves</b><small>Tractored Out by Dorothea Lange, 1938</small></li>
-      <li><span class="n">14</span><b>The slow S</b><small>The Tetons and the Snake River by Ansel Adams, 1942</small></li>
-      <li><span class="n">15</span><b>Spokes to the center</b><small>The Library of Congress dome</small></li>
-      <li><span class="n">16</span><b>The coil</b><small>Hurricane Isabel from the Space Station, 2003</small></li>
+    <div class="revela">
+      <span class="contador">TRICKS <b data-cont>00</b>/16</span>
+      <h2>Sixteen tricks. Sixteen photographs you already know.</h2>
+      <p class="lead">From Pelé carried off the pitch in 1970 to a hurricane seen from space. Every one is a real archive photograph.</p>
+    </div>
+    <ol class="grade" data-grade>
+      <li><img src="img/t/01.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>01</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><polygon points="50,12 88,86 12,86"/></g></svg></div><span class="nome">The triangle</span></li>
+      <li><img src="img/t/02.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>02</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="92" x2="50" y2="40"/><line x1="92" y1="92" x2="50" y2="40"/><line x1="50" y1="96" x2="50" y2="40"/><circle cx="50" cy="34" r="6" fill="currentColor"/></g></svg></div><span class="nome">Lines that point</span></li>
+      <li><img src="img/t/03.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>03</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="88" x2="88" y2="12"/><circle cx="50" cy="50" r="5" fill="currentColor"/></g></svg></div><span class="nome">The diagonal</span></li>
+      <li><img src="img/t/04.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>04</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M10,50 Q30,28 50,28 Q70,28 90,50 Q70,72 50,72 Q30,72 10,50z"/><circle cx="50" cy="50" r="10" fill="currentColor"/><line x1="62" y1="50" x2="96" y2="20" stroke-dasharray="4 5"/></g></svg></div><span class="nome">The one who looks back</span></li>
+      <li><img src="img/t/05.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>05</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="84" height="84"/><rect x="32" y="30" width="36" height="44"/></g></svg></div><span class="nome">The frame inside the frame</span></li>
+      <li><img src="img/t/06.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>06</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="38"/><rect x="38" y="40" width="24" height="20" fill="currentColor"/></g></svg></div><span class="nome">The picture inside the picture</span></li>
+      <li><img src="img/t/07.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>07</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="14" width="72" height="72" stroke-dasharray="9 8"/></g></svg></div><span class="nome">One dark shape</span></li>
+      <li><img src="img/t/08.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>08</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="13" r="7" fill="currentColor"/><line x1="43" y1="25" x2="20" y2="78"/><line x1="57" y1="25" x2="80" y2="78"/><ellipse cx="50" cy="82" rx="31" ry="8"/></g></svg></div><span class="nome">Light as a spotlight</span></li>
+      <li><img src="img/t/09.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>09</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="7" /><circle cx="20" cy="50" r="7" /><circle cx="20" cy="80" r="7" /><circle cx="50" cy="20" r="7" /><circle cx="50" cy="50" r="7" /><circle cx="50" cy="80" r="7" /><circle cx="80" cy="20" r="7" /><circle cx="80" cy="50" r="7" /><circle cx="80" cy="80" r="10" fill="currentColor"/></g></svg></div><span class="nome">Pattern and scale</span></li>
+      <li><img src="img/t/10.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>10</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="38"/><path d="M50,50 L50,12 A38,38 0 0,1 83,31 z" fill="currentColor"/></g></svg></div><span class="nome">One color rules</span></li>
+      <li><img src="img/t/11.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>11</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><line x1="50" y1="6" x2="50" y2="94" stroke-dasharray="6 5"/><circle cx="14" cy="50" r="9"/><circle cx="86" cy="50" r="9"/><circle cx="50" cy="50" r="13" fill="currentColor"/></g></svg></div><span class="nome">The center seat</span></li>
+      <li><img src="img/t/12.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>12</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="42" x2="88" y2="60"/><polygon points="50,52 38,78 62,78"/><circle cx="25" cy="34" r="6"/><circle cx="74" cy="40" r="13" fill="currentColor"/></g></svg></div><span class="nome">The heavier half</span></li>
+      <li><img src="img/t/13.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>13</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="84" height="84"/><line x1="36" y1="8" x2="36" y2="92"/><line x1="64" y1="8" x2="64" y2="92"/><line x1="8" y1="36" x2="92" y2="36"/><line x1="8" y1="64" x2="92" y2="64"/><circle cx="64" cy="36" r="6" fill="currentColor"/></g></svg></div><span class="nome">Thirds, not halves</span></li>
+      <li><img src="img/t/14.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>14</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M70,8 C10,30 90,62 30,92"/></g></svg></div><span class="nome">The slow S</span></li>
+      <li><img src="img/t/15.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>15</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="6" fill="currentColor"/><line x1="50" y1="38" x2="50" y2="6"/><line x1="50" y1="62" x2="50" y2="94"/><line x1="38" y1="50" x2="6" y2="50"/><line x1="62" y1="50" x2="94" y2="50"/><line x1="41" y1="41" x2="18" y2="18"/><line x1="59" y1="59" x2="82" y2="82"/><line x1="59" y1="41" x2="82" y2="18"/><line x1="41" y1="59" x2="18" y2="82"/></g></svg></div><span class="nome">Spokes to the center</span></li>
+      <li><img src="img/t/16.jpg" width="360" height="360" loading="lazy" alt=""><div class="cab"><span>16</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M50,50 m0,-4 a4,4 0 1,1 -4,4 a8,8 0 0,1 8,-8 a14,14 0 0,1 14,14 a24,24 0 0,1 -24,24 a38,38 0 0,1 -38,-38"/></g></svg></div><span class="nome">The coil</span></li>
     </ol>
   </div>
 </section>
 
-<section class="dia">
+<section class="papel2">
   <div class="wrap">
-    <p class="mono">More than reading</p>
-    <h2>A book that checks if you really learned it</h2>
-    <div class="dentro">
-      <figure><img src="img/checkpoint4.jpg" width="900" height="1350" loading="lazy" alt="Checkpoint page"><figcaption><b>3 checkpoints</b>After Days 4, 8 and 12: details from earlier photos. Which day, and what job do they do?</figcaption></figure>
-      <figure><img src="img/prova2_q.jpg" width="900" height="1350" loading="lazy" alt="Final test page"><figcaption><b>A final test</b>Three photos you've never seen in the book, with a full answer key and a score out of 12.</figcaption></figure>
-      <figure><img src="img/fichas1.jpg" width="900" height="1350" loading="lazy" alt="Field Guide page"><figcaption><b>The Field Guide</b>Every trick on a card: what it does, how to spot it in 3 seconds, and the phone recipe.</figcaption></figure>
+    <div class="revela">
+      <span class="rotulo">What one day looks like</span>
+      <h2>Five pages. Ten minutes. One trick you'll never unsee.</h2>
+      <p class="lead">Every day follows the same path, so you always know where you are.</p>
     </div>
-    <ul class="lista">
-      <li>16 phone missions, one photo each</li>
-      <li>Day 0: a snapshot of how you see today, graded again at the end</li>
-      <li>A printable phone checklist and a contact sheet for your 16 shots</li>
-      <li>Real archive photographs only, from NASA, the Library of Congress and other archives. No AI images.</li>
-      <li>Every story is sourced, with the full list at the back</li>
-      <li>No experience or camera needed: just the phone in your pocket</li>
-    </ul>
+    <div class="trilho">
+      <figure><img src="img/caso1_1.jpg" width="900" height="1350" loading="lazy" alt="Day 1 opening page"><figcaption><b><i>1</i>The question</b>A famous photo and something you didn't notice.</figcaption></figure>
+      <figure><img src="img/caso8_2.jpg" width="900" height="1350" loading="lazy" alt="Eye path page"><figcaption><b><i>2</i>Where your eye travels</b>The exact path your eye took, numbered, and the rule in one line.</figcaption></figure>
+      <figure><img src="img/caso3_3.jpg" width="900" height="1350" loading="lazy" alt="Details page"><figcaption><b><i>3</i>The details</b>What hides in the corners, and the real story behind the picture.</figcaption></figure>
+      <figure><img src="img/caso1_4.jpg" width="900" height="1350" loading="lazy" alt="Test and mission page"><figcaption><b><i>4</i>Test the trick</b>The same photo with the trick removed, then a mission for your phone.</figcaption></figure>
+      <figure><img src="img/caso4_5.jpg" width="900" height="1350" loading="lazy" alt="Notebook page"><figcaption><b><i>5</i>Your notebook</b>Write the rule, say it in your words, sketch it, shoot it.</figcaption></figure>
+    </div>
+    <p class="dica">Swipe →</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <p class="mono">How you'll read it</p>
-    <h2>Made for your phone, and for paper</h2>
-    <div class="formato">
-      <div><h3>Read anywhere</h3><p>A 6×9 in PDF, 112 pages. Opens on any phone, tablet or computer.</p></div>
-      <div><h3>Fill it in on your phone</h3><p>Every line, box and score can be typed in with the free Adobe Acrobat Reader app. Some readers, like Apple Books, show the pages but won't let you type.</p></div>
-      <div><h3>Or print it</h3><p>Every exercise also works on paper: print the pages and answer with a pen, or just answer out loud.</p></div>
+    <div class="revela">
+      <span class="rotulo">More than reading</span>
+      <h2>A book that checks if you really learned it</h2>
     </div>
+    <div class="dentro revela">
+      <figure><img src="img/checkpoint4.jpg" width="900" height="1350" loading="lazy" alt="Checkpoint page"><figcaption><b>3 checkpoints</b>After Days 4, 8 and 12: details from earlier photos. Which day, and what job do they do?</figcaption></figure>
+      <figure><img src="img/prova2_q.jpg" width="900" height="1350" loading="lazy" alt="Final test page"><figcaption><b>A final test</b>Three photos you've never seen in the book, with a full answer key and a score out of 12.</figcaption></figure>
+      <figure><img src="img/fichas1.jpg" width="900" height="1350" loading="lazy" alt="Field Guide page"><figcaption><b>The Field Guide</b>Every trick on a card: what it does, how to spot it in 3 seconds, and the phone recipe.</figcaption></figure>
+    </div>
+    <ul class="lista revela">
+      <li>16 phone missions, one photo each</li>
+      <li>Day 0: a snapshot of how you see today, graded again at the end</li>
+      <li>A printable phone checklist and a contact sheet for your 16 shots</li>
+      <li>Real archive photographs only. No AI images, not even on the cover.</li>
+      <li>Every story sourced, with the full list at the back</li>
+      <li>No experience or camera needed</li>
+    </ul>
+  </div>
+</section>
+
+<section class="papel2">
+  <div class="wrap">
+    <div class="revela">
+      <span class="rotulo">How you'll read it</span>
+      <h2>Made for your phone, and for paper</h2>
+    </div>
+    <div class="formato revela">
+      <div><svg viewBox="0 0 40 40" fill="none" stroke="#161513" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="3" width="18" height="34" rx="4"/><line x1="17" y1="32" x2="23" y2="32"/><path d="M15 12h10M15 17h10M15 22h6" stroke="#E8432E"/></svg><h3>Read anywhere</h3><p>A 6×9 in PDF, 112 pages. Opens on any phone, tablet or computer.</p></div>
+      <div><svg viewBox="0 0 40 40" fill="none" stroke="#161513" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 32l3-9L27 7l6 6-16 16z"/><path d="M24 10l6 6"/><path d="M6 36h14" stroke="#E8432E"/></svg><h3>Fill it in on your phone</h3><p>Every line, box and score can be typed in with the free Adobe Acrobat Reader app. Apple Books shows the pages but won't let you type.</p></div>
+      <div><svg viewBox="0 0 40 40" fill="none" stroke="#161513" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 14V4h18v10"/><rect x="5" y="14" width="30" height="14" rx="2"/><rect x="11" y="23" width="18" height="13"/><path d="M15 28h10M15 32h6" stroke="#E8432E"/></svg><h3>Or print it</h3><p>Every exercise works on paper too: print the pages and answer with a pen, or just answer out loud.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="escuro nota">
+  <div class="wrap revela">
+    <span class="rotulo">A note from @domfolk</span>
+    <blockquote>Great photos don't ask for your attention. They take it.</blockquote>
+    <p class="lead">Every day on @domfolk I take one photograph and show you what is hiding in it. This book is the slow version: sixteen tricks, one a day, and a phone in your pocket to try every one of them.</p>
+    <div class="assina"><img src="img/dF.svg" alt="">@domfolk</div>
   </div>
 </section>
 
 <section class="faq">
   <div class="wrap">
-    <p class="mono">Questions</p>
+    <span class="rotulo">Questions</span>
     <h2>Before you buy</h2>
-    <details><summary>Is this for photographers?</summary><p>It's for anyone who looks at photos, which is everyone. You don't need to know any photography terms; every trick is explained with one famous picture and tested with your phone.</p></details>
+    <details><summary>Is this for photographers?</summary><p>It's for anyone who looks at photos, which is everyone. You don't need any photography terms: every trick is explained with one famous picture and tested with your phone.</p></details>
     <details><summary>Do I need a camera?</summary><p>No. Every mission is designed for the phone in your pocket.</p></details>
     <details><summary>How do I get the book?</summary><p>Right after checkout, Gumroad gives you the download link and emails it to you. You can download it again any time from that email.</p></details>
     <details><summary>Are the photos real?</summary><p>Yes. All 19 photographs in the book are real archive photos, credited, with sources listed for every fact. Nothing is AI-generated, including the cover.</p></details>
@@ -246,11 +427,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 </section>
 
 <section class="escuro final">
-  <div class="wrap">
-    <img class="mini" src="img/capa.jpg" width="900" height="1350" loading="lazy" alt="">
-    <h2>Your eye has been steered your whole life.<br>Sixteen days to see how.</h2>
+  <div class="wrap revela">
+    <div class="mini"><img src="img/capa.jpg" width="900" height="1350" loading="lazy" alt=""><div class="af" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
+    <h2>Your eye has been steered your whole life. Sixteen days to see how.</h2>
+    <div class="relogio" data-relogio hidden></div>
     <div class="preco" data-preco></div>
-    <a class="comprar" href="#" data-comprar>Get the book</a>
+    <a class="comprar" href="#" data-comprar>Get the book <span class="seta">→</span></a>
     <p class="nota-compra">Instant PDF download · Secure checkout by Gumroad</p>
   </div>
 </section>
@@ -262,26 +444,93 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   </div>
 </footer>
 
+<div class="barra-compra" data-barra-compra>
+  <div class="p" data-preco-mini></div>
+  <a class="comprar" href="#" data-comprar>Get the book</a>
+</div>
+
 <script>
 // ===== Configuração da venda: edite só aqui =====
 const VENDA = {
   produto: 'https://lsa717108.gumroad.com/l/cucpy', // link do produto na Gumroad
   preco: 19,               // preço normal (US$)
   lancamento: 15,          // preço de lançamento (US$)
-  fimLancamento: '2026-11-16'     // último dia do lançamento, ex.: '2026-11-16' (null = sem promoção, mostra o preço normal)
+  fimLancamento: '2026-11-16'     // último dia do lançamento (null = sem promoção, mostra o preço normal)
 };
 // =================================================
+const PERCURSO = [[40,13,'The windows, burning white high above.'],[55,45,'Beams of light falling through the dark.'],[35,78,'Two men standing exactly where the light lands.'],[88,89,'A pool of light where no one stands.'],[75,78,'Then, slowly: a crowd on the benches.']];
 (function () {
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  // price + launch
   const fim = VENDA.fimLancamento ? new Date(VENDA.fimLancamento + 'T23:59:59') : null;
   const emLancamento = fim && new Date() <= fim;
   const dataFim = fim ? fim.toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) : '';
-  const html = emLancamento
-    ? `<span class="agora">$${VENDA.lancamento}</span><span class="antes">$${VENDA.preco}</span><span class="ate">Launch price until ${dataFim}</span>`
-    : `<span class="agora">$${VENDA.preco}</span>`;
-  document.querySelectorAll('[data-preco]').forEach(e => e.innerHTML = html);
+  $$('[data-preco]').forEach(e => e.innerHTML = emLancamento
+    ? `<span class="agora">$${VENDA.lancamento}</span><span class="antes">$${VENDA.preco}</span><span class="ate">Launch price until ${dataFim}, then $${VENDA.preco}</span>`
+    : `<span class="agora">$${VENDA.preco}</span>`);
+  $('[data-preco-mini]').innerHTML = emLancamento ? `$${VENDA.lancamento}<s>$${VENDA.preco}</s><small>Launch price until ${dataFim}</small>` : `$${VENDA.preco}`;
   const url = VENDA.produto + (VENDA.produto.includes('?') ? '&' : '?') + 'wanted=true';
-  document.querySelectorAll('[data-comprar]').forEach(a => a.href = url);
-  document.querySelectorAll('[data-ano]').forEach(e => e.textContent = new Date().getFullYear());
+  $$('[data-comprar]').forEach(a => a.href = url);
+  $$('[data-ano]').forEach(e => e.textContent = new Date().getFullYear());
+  if (emLancamento) {
+    const faixa = $('[data-faixa]'), relogio = $('[data-relogio]');
+    faixa.hidden = false; relogio.hidden = false;
+    const tick = () => {
+      const ms = Math.max(0, fim - new Date()), d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60;
+      faixa.textContent = `Launch price: $${VENDA.lancamento} instead of $${VENDA.preco}, ${d ? d + (d > 1 ? ' days' : ' day') + ' left' : 'last day'}`;
+      relogio.innerHTML = [[d, 'days'], [h, 'hours'], [m, 'min']].map(([v, l]) => `<div><b>${String(v).padStart(2, '0')}</b><span>${l}</span></div>`).join('');
+    };
+    tick(); setInterval(tick, 30000);
+  }
+  // reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); } }), { threshold: .15 });
+  $$('.revela').forEach(e => io.observe(e));
+  // tricks counter + grid
+  const cards = $$('.grade li'), cont = $('[data-cont]');
+  let vistos = 0;
+  const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visto'); io2.unobserve(e.target); vistos++; cont.textContent = String(vistos).padStart(2, '0'); } }), { threshold: .6 });
+  cards.forEach(c => io2.observe(c));
+  // demo: eye path
+  const svg = $('[data-percurso]'), leg = $('[data-legenda]'), foto = $('[data-foto]'), passos = $('.passos');
+  svg.innerHTML = `<polyline points="${PERCURSO.map(p => p[0] + ',' + p[1]).join(' ')}"/>` + PERCURSO.map((p, i) => `<g><circle cx="${p[0]}" cy="${p[1]}" r="3.4"/><text x="${p[0]}" y="${p[1] + .2}">${i + 1}</text></g>`).join('');
+  leg.innerHTML = PERCURSO.map((p, i) => `<li><b>${i + 1}</b>${p[2]}</li>`).join('');
+  const btM = $('[data-mostrar]'), btC = $('[data-comparar]');
+  let timers = [];
+  const mostrar = on => {
+    timers.forEach(clearTimeout); timers = [];
+    btM.setAttribute('aria-pressed', on); btM.textContent = on ? 'Hide the path' : 'Show me the path';
+    foto.classList.toggle('mostrando', on); passos.classList.toggle('mostrando-leg', on);
+    const gs = [...svg.querySelectorAll('g')], lis = [...leg.children];
+    if (!on) { gs.concat(lis).forEach(e => e.classList.remove('on')); return; }
+    gs.forEach((g, i) => timers.push(setTimeout(() => { g.classList.add('on'); lis[i].classList.add('on'); }, 350 + i * 550)));
+  };
+  // demo: before/after
+  let arrastando = false;
+  const sem = foto.querySelector('.sem'), alca = foto.querySelector('.alca');
+  const setCorte = pct => foto.style.setProperty('--corte', Math.min(100, Math.max(0, pct)) + '%');
+  const comparar = on => {
+    btC.setAttribute('aria-pressed', on); btC.textContent = on ? 'Bring the trick back' : 'Remove the trick';
+    foto.classList.toggle('comparando', on);
+    if (!on) { setCorte(100); return; }
+    mostrar(false); setCorte(100);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      sem.style.transition = 'clip-path .9s ease'; alca.style.transition = 'left .9s ease, opacity .3s'; setCorte(45);
+      setTimeout(() => { sem.style.transition = ''; alca.style.transition = ''; }, 950);
+    }));
+  };
+  btM.onclick = () => { if (foto.classList.contains('comparando')) comparar(false); mostrar(btM.getAttribute('aria-pressed') !== 'true'); };
+  btC.onclick = () => comparar(btC.getAttribute('aria-pressed') !== 'true');
+  const mover = e => { if (!arrastando) return; const r = foto.getBoundingClientRect(); setCorte((e.clientX - r.left) / r.width * 100); };
+  foto.addEventListener('pointerdown', e => { if (!foto.classList.contains('comparando')) return; arrastando = true; foto.setPointerCapture(e.pointerId); mover(e); });
+  foto.addEventListener('pointermove', mover);
+  foto.addEventListener('pointerup', () => arrastando = false);
+  foto.addEventListener('pointercancel', () => arrastando = false);
+  // mobile buy bar after hero
+  const barra = $('[data-barra-compra]'), heroi = $('#topo'), final = $('.final');
+  let heroiFora = false, finalVisivel = false;
+  const att = () => barra.classList.toggle('on', heroiFora && !finalVisivel);
+  new IntersectionObserver(([e]) => { heroiFora = !e.isIntersecting; att(); }).observe(heroi);
+  new IntersectionObserver(([e]) => { finalVisivel = e.isIntersecting; att(); }).observe(final);
 })();
 </script>
 </body>
