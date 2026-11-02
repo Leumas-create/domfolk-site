@@ -589,21 +589,22 @@ const PERCURSO = [[40,13,'The windows, burning white high above.'],[55,45,'Beams
   const alca = foto.querySelector('.alca');
   const setCorte = pct => { corte = Math.min(100, Math.max(0, pct)); foto.style.setProperty('--corte', corte + '%'); alca.setAttribute('aria-valuenow', Math.round(corte));
     foto.style.setProperty('--op-com', Math.min(1, corte / 25)); foto.style.setProperty('--op-sem', Math.min(1, (100 - corte) / 25)); };
-  const animarCorte = (para, ms) => new Promise(res => { const de = corte, t0 = performance.now();
-    const passo = t => { const k = Math.min(1, (t - t0) / ms), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; setCorte(de + (para - de) * e); if (k < 1 && !arrastando) requestAnimationFrame(passo); else res(); };
+  let animId = 0;
+  const animarCorte = (para, ms) => new Promise(res => { const de = corte, t0 = performance.now(), id = ++animId;
+    const passo = t => { if (id !== animId) return res(false); const k = Math.min(1, (t - t0) / ms), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; setCorte(de + (para - de) * e); if (id !== animId) return res(false); if (k < 1 && !arrastando) requestAnimationFrame(passo); else res(true); };
     requestAnimationFrame(passo); });
   const comparar = async on => {
     btC.setAttribute('aria-pressed', on); rotC.textContent = on ? 'Bring the trick back' : 'Remove the trick';
     alca.tabIndex = on ? 0 : -1;
     if (!on) { await animarCorte(100, 500); if (btC.getAttribute('aria-pressed') !== 'true') foto.classList.remove('comparando'); return; }
     mostrar(false); foto.classList.add('comparando'); setCorte(100); alca.classList.remove('tocada');
-    await animarCorte(12, 1100); if (!arrastando && btC.getAttribute('aria-pressed') === 'true') await animarCorte(50, 800);
+    if (await animarCorte(12, 1100) && !arrastando && btC.getAttribute('aria-pressed') === 'true') await animarCorte(50, 800);
     $('[data-passo2]').classList.add('feito'); fecho.classList.add('on');
   };
   btM.onclick = () => { if (foto.classList.contains('comparando')) { btC.setAttribute('aria-pressed', false); rotC.textContent = 'Remove the trick'; foto.classList.remove('comparando'); setCorte(100); } mostrar(btM.getAttribute('aria-pressed') !== 'true'); };
   btC.onclick = () => comparar(btC.getAttribute('aria-pressed') !== 'true');
   const mover = e => { if (!arrastando) return; const r = foto.getBoundingClientRect(); setCorte((e.clientX - r.left) / r.width * 100); };
-  foto.addEventListener('pointerdown', e => { if (!foto.classList.contains('comparando')) return; arrastando = true; alca.classList.add('tocada'); foto.classList.add('arrastando'); foto.setPointerCapture(e.pointerId); mover(e); });
+  foto.addEventListener('pointerdown', e => { if (!foto.classList.contains('comparando')) return; animId++; arrastando = true; alca.classList.add('tocada'); foto.classList.add('arrastando'); foto.setPointerCapture(e.pointerId); mover(e); });
   foto.addEventListener('pointermove', mover);
   const soltar = () => { arrastando = false; foto.classList.remove('arrastando'); };
   foto.addEventListener('pointerup', soltar); foto.addEventListener('pointercancel', soltar);
