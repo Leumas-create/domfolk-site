@@ -48,6 +48,9 @@ h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px;
 /* buttons */
 .comprar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--amarelo); color: var(--tinta);
   font: 700 17px var(--mono); text-decoration: none; padding: 17px 30px; border-radius: 6px; transition: transform .15s, box-shadow .15s; box-shadow: 0 6px 0 #b39200; }
+.comprar { position: relative; overflow: hidden; }
+.comprar::after { content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent); transform: skewX(-20deg); animation: brilho 5s ease-in-out 2.5s infinite; pointer-events: none; }
+@keyframes brilho { 0%, 70% { left: -60%; } 90%, 100% { left: 130%; } }
 .comprar:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #b39200; }
 .comprar:active { transform: translateY(4px); box-shadow: 0 2px 0 #b39200; }
 .comprar .seta { transition: transform .15s; }
@@ -77,6 +80,7 @@ h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px;
               linear-gradient(0deg, transparent calc(33.33% - .5px), #ffffff0d calc(33.33% - .5px), #ffffff0d calc(33.33% + .5px), transparent calc(33.33% + .5px), transparent calc(66.66% - .5px), #ffffff0d calc(66.66% - .5px), #ffffff0d calc(66.66% + .5px), transparent calc(66.66% + .5px)); }
 .heroi .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; position: relative; }
 .hud { display: flex; align-items: center; gap: 14px; font: 600 12px var(--mono); letter-spacing: .12em; color: var(--cinza); text-transform: uppercase; }
+.hud-n { color: var(--papel); font-weight: 700; }
 .rec { display: inline-flex; align-items: center; gap: 6px; color: var(--amarelo); }
 .rec::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--lapis); animation: piscar 1.4s steps(1) infinite; }
 @keyframes piscar { 50% { opacity: 0; } }
@@ -85,7 +89,8 @@ h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px;
 .selos { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 26px; font: 13px var(--mono); color: var(--cinza); }
 .selos span { display: inline-flex; align-items: center; gap: 8px; }
 .selos span::before { content: ''; width: 7px; height: 7px; background: var(--amarelo); }
-.pilha { position: relative; width: min(100%, 400px); justify-self: center; aspect-ratio: 2 / 3; }
+.pilha { position: relative; width: min(100%, 400px); justify-self: center; aspect-ratio: 2 / 3; transform: perspective(1200px) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)); transition: transform .4s ease-out; animation: flutua 6s ease-in-out infinite; }
+@keyframes flutua { 50% { translate: 0 -8px; } }
 .pilha img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 3px; box-shadow: 0 30px 60px rgba(0,0,0,.6); transition: transform .6s cubic-bezier(.2,.8,.2,1); }
 .pilha .p1 { transform: rotate(7deg) translate(18%, 3%); filter: brightness(.7); }
 .pilha .p2 { transform: rotate(-6deg) translate(-16%, 4%); filter: brightness(.75); }
@@ -108,40 +113,80 @@ h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px;
 .gancho .lead { margin: 26px auto 0; }
 
 /* demo */
+@property --fx { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
+@property --fy { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
 .demo .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
 .quadro { position: relative; background: #fff; padding: 12px; border-radius: 2px; box-shadow: 0 20px 50px rgba(0,0,0,.45); }
-.foto { position: relative; overflow: hidden; aspect-ratio: 1; background: #111; user-select: none; -webkit-user-select: none; touch-action: pan-y; }
-.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.foto { position: relative; overflow: hidden; aspect-ratio: 1; background: #111; user-select: none; -webkit-user-select: none; touch-action: pan-y; --fx: 50%; --fy: 50%; }
+.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+.foto.mostrando img:first-child { transform: scale(1.04); }
 .foto .sem { clip-path: inset(0 0 0 var(--corte, 100%)); }
-.foto svg.percurso { position: absolute; inset: 0; width: 100%; height: 100%; }
-.percurso polyline { fill: none; stroke: var(--amarelo); stroke-width: .5; stroke-dasharray: 1.2 1.2; opacity: 0; transition: opacity .4s; }
-.percurso g { opacity: 0; transform-origin: center; transform-box: fill-box; transform: scale(.2); transition: opacity .3s, transform .4s cubic-bezier(.2,1.6,.4,1); }
-.percurso circle { fill: var(--amarelo); stroke: #111; stroke-width: .35; }
-.percurso text { font: 700 3.4px var(--mono); fill: #111; text-anchor: middle; dominant-baseline: central; }
-.mostrando .percurso polyline { opacity: 1; }
-.percurso g.on { opacity: 1; transform: scale(1); }
-.alca { position: absolute; top: 0; bottom: 0; left: var(--corte, 100%); width: 3px; margin-left: -1.5px; background: var(--amarelo); opacity: 0; transition: opacity .3s; cursor: ew-resize; }
-.alca::after { content: '⟷'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border-radius: 50%; background: var(--amarelo); color: var(--tinta); font: 700 18px/40px var(--mono); text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.4); }
+.holofote { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .6s, --fx .7s cubic-bezier(.6,0,.2,1), --fy .7s cubic-bezier(.6,0,.2,1);
+  background: radial-gradient(circle at var(--fx) var(--fy), transparent 0 9%, rgba(5,5,4,.35) 20%, rgba(5,5,4,.72) 46%); }
+.mostrando .holofote { opacity: 1; }
+.travado .holofote { opacity: .55; }
+.foto svg.percurso { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.seg { fill: none; stroke: var(--amarelo); stroke-width: .55; stroke-dasharray: 1.3 1.1; stroke-linecap: round; }
+.seg-m { stroke: #fff; stroke-width: 3; fill: none; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .5s cubic-bezier(.5,0,.3,1); }
+.seg-m.on { stroke-dashoffset: 0; }
+.ponto { opacity: 0; transform: scale(0); transform-origin: center; transform-box: fill-box; transition: opacity .2s, transform .5s cubic-bezier(.2,1.8,.4,1); }
+.ponto.on { opacity: 1; transform: scale(1); }
+.ponto circle.disco { fill: var(--amarelo); stroke: #111; stroke-width: .35; transition: fill .3s; }
+.ponto circle.onda { fill: none; stroke: var(--amarelo); stroke-width: .5; opacity: 0; transform-origin: center; transform-box: fill-box; }
+.ponto.on circle.onda { animation: onda 1s ease-out .1s; }
+@keyframes onda { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(3.2); } }
+.ponto text { font: 700 3.4px var(--mono); fill: #111; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.ponto.atual circle.disco { fill: #fff; }
+.af-mira { opacity: 0; transition: transform .7s cubic-bezier(.6,0,.2,1), opacity .3s; }
+.mostrando .af-mira { opacity: 1; }
+.af-mira > g { transform-origin: 0 0; }
+.af-mira.caca > g { animation: caca .55s cubic-bezier(.3,0,.2,1); }
+@keyframes caca { 0% { transform: scale(1.7); opacity: .4; } 60% { transform: scale(.88); opacity: 1; } 100% { transform: scale(1); } }
+.af-mira path { fill: none; stroke: var(--amarelo); stroke-width: .7; stroke-linecap: square; }
+.af-mira text { font: 700 2.6px var(--mono); letter-spacing: .3px; fill: var(--amarelo); text-anchor: middle; opacity: 0; transition: opacity .3s; }
+.travado .af-mira text { opacity: 1; }
+.travado .af-mira path { animation: trava .5s steps(2) 2; }
+@keyframes trava { 50% { stroke: #fff; } }
+.alca { position: absolute; top: 0; bottom: 0; left: var(--corte, 100%); width: 3px; margin-left: -1.5px; background: var(--amarelo); opacity: 0; transition: opacity .3s; cursor: ew-resize; outline: none; }
+.alca::after { content: '⟷'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; background: var(--amarelo); color: var(--tinta); font: 700 19px/44px var(--mono); text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.4); transition: transform .2s; }
+.alca::before { content: ''; position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; border: 2px solid var(--amarelo); animation: pulso 1.6s ease-out infinite; }
+.alca.tocada::before { display: none; }
+.alca:focus-visible::after, .arrastando .alca::after { transform: translate(-50%, -50%) scale(1.12); }
+@keyframes pulso { from { transform: scale(1); opacity: .9; } to { transform: scale(2); opacity: 0; } }
 .comparando .alca { opacity: 1; }
-.etq { position: absolute; top: 10px; font: 700 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; padding: 4px 8px; border-radius: 3px; opacity: 0; transition: opacity .3s; }
+.etq { position: absolute; top: 10px; font: 700 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; padding: 4px 8px; border-radius: 3px; opacity: 0; transition: opacity .3s, transform .3s; transform: translateY(-6px); }
 .etq.com { left: 10px; background: var(--amarelo); color: var(--tinta); }
 .etq.sem2 { right: 10px; background: #fff; color: var(--tinta); }
-.comparando .etq { opacity: 1; }
+.comparando .etq { transform: none; }
+.comparando .etq.com { opacity: var(--op-com, 1); }
+.comparando .etq.sem2 { opacity: var(--op-sem, 1); }
 .creditinho { margin-top: 10px; font: 11px var(--mono); color: var(--suave); }
 .passos { counter-reset: p; }
 .passo { border-top: 1px solid #2c2925; padding: 20px 0; }
 .passo h3 { font-size: 24px; margin-bottom: 8px; display: flex; gap: 12px; align-items: baseline; }
-.passo h3::before { counter-increment: p; content: counter(p); font: 700 13px var(--mono); color: var(--tinta); background: var(--amarelo); width: 24px; height: 24px; border-radius: 50%; display: inline-grid; place-items: center; flex: none; transform: translateY(-3px); }
+.passo h3::before { counter-increment: p; content: counter(p); font: 700 13px var(--mono); color: var(--tinta); background: var(--amarelo); width: 24px; height: 24px; border-radius: 50%; display: inline-grid; place-items: center; flex: none; transform: translateY(-3px); transition: background .3s; }
+.passo.feito h3::before { content: '✓'; background: #fff; }
 .passo p { color: #cfc8b8; font-size: 17px; }
-.passo .acao { margin-top: 14px; font: 700 14px var(--mono); color: var(--amarelo); border: 1.5px solid var(--amarelo); border-radius: 5px; padding: 10px 16px; transition: background .15s, color .15s; }
-.passo .acao:hover, .passo .acao[aria-pressed="true"] { background: var(--amarelo); color: var(--tinta); }
-.legenda-percurso { list-style: none; margin-top: 12px; display: grid; gap: 6px; }
-.legenda-percurso li { display: none; gap: 10px; font-size: 16px; color: #cfc8b8; opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s; }
+.acao { position: relative; overflow: hidden; margin-top: 14px; display: inline-flex; align-items: center; gap: 10px; font: 700 14px var(--mono); color: var(--amarelo); border: 1.5px solid var(--amarelo); border-radius: 5px; padding: 11px 18px; transition: background .2s, color .2s, transform .15s; }
+.acao:hover { background: rgba(255,208,0,.12); }
+.acao:active { transform: scale(.96); }
+.acao[aria-pressed="true"] { background: var(--amarelo); color: var(--tinta); }
+.acao .ic { width: 16px; height: 16px; flex: none; }
+.acao .barra-prog { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--tinta); }
+.acao.rodando .barra-prog { animation: prog var(--dur, 3s) linear forwards; }
+@keyframes prog { to { width: 100%; } }
+.legenda-percurso { list-style: none; margin-top: 14px; display: grid; gap: 4px; }
+.legenda-percurso li { display: none; gap: 10px; align-items: flex-start; font-size: 16px; color: #8d8678; padding: 5px 8px; margin-left: -8px; border-radius: 5px; opacity: 0; transform: translateX(-10px); transition: opacity .35s, transform .35s, color .3s, background .3s; }
 .mostrando-leg .legenda-percurso li { display: flex; }
-.legenda-percurso li.on { opacity: 1; transform: none; }
-.legenda-percurso b { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--amarelo); color: var(--tinta); font: 700 12px/22px var(--mono); text-align: center; }
-.fecho-demo { margin-top: 22px; font-size: 20px; }
-.fecho-demo b { color: var(--amarelo); font-weight: 600; }
+.legenda-percurso li.on { opacity: 1; transform: none; color: #cfc8b8; }
+.legenda-percurso li.atual { color: var(--papel); background: rgba(255,208,0,.1); }
+.legenda-percurso li.on:hover { background: rgba(255,208,0,.16); }
+.legenda-percurso b { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--amarelo); color: var(--tinta); font: 700 12px/22px var(--mono); text-align: center; transition: background .3s; }
+.legenda-percurso li.atual b { background: #fff; }
+.fecho-demo { margin-top: 22px; font-size: 20px; opacity: .35; transition: opacity .6s; }
+.fecho-demo.on { opacity: 1; }
+.fecho-demo b { color: var(--amarelo); font-weight: 600; background: linear-gradient(var(--amarelo), var(--amarelo)) no-repeat 0 100% / 0 2px; transition: background-size 1s ease .3s; padding-bottom: 2px; }
+.fecho-demo.on b { background-size: 100% 2px; }
 
 /* 16 days grid */
 .contador { font: 700 13px var(--mono); letter-spacing: .1em; color: var(--suave); }
@@ -153,6 +198,10 @@ h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px;
 .grade .n { font: 700 13px var(--mono); color: var(--cinza); }
 .grade svg { width: 44px; height: 44px; color: #4a453d; align-self: flex-end; margin-top: -18px; transition: color .5s; }
 .grade li.visto svg { color: var(--amarelo); }
+.grade svg .tr { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1s cubic-bezier(.5,0,.2,1) var(--d, 0s); }
+.grade svg [fill="currentColor"] { fill-opacity: 0; transition: fill-opacity .4s calc(var(--d, 0s) + .7s); }
+.grade li.visto svg .tr { stroke-dashoffset: 0; }
+.grade li.visto svg [fill="currentColor"] { fill-opacity: 1; }
 .grade .nome { font-size: 18px; font-weight: 600; line-height: 1.15; margin-top: 18px; }
 
 /* day carousel */
@@ -263,7 +312,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 <section class="escuro heroi" id="topo">
   <div class="wrap">
     <div>
-      <div class="hud"><span>Vol. 1</span><span class="rec">Rec</span><span>Tricks 00/16</span></div>
+      <div class="hud"><span>Vol. 1</span><span class="rec">Rec</span><span>Tricks <b class="hud-n" data-hud-cont>00</b>/16</span></div>
       <h1>16 Tricks Your Eye <em>Never</em> Notices</h1>
       <p class="lead">How the most famous photos steer your eye, and how to use the same tricks with the phone in your pocket.</p>
       <div class="preco" data-preco></div>
@@ -295,9 +344,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="foto" data-foto>
           <img src="img/demo.jpg" width="1100" height="1100" alt="In the waiting room of the Union Station, Chicago, 1943, by Jack Delano">
           <img class="sem" src="img/demo_sem.jpg" width="1100" height="1100" alt="">
+          <div class="holofote"></div>
           <svg class="percurso" viewBox="0 0 100 100" aria-hidden="true" data-percurso></svg>
           <span class="etq com">With the trick</span><span class="etq sem2">Trick removed</span>
-          <div class="alca" data-alca></div>
+          <div class="alca" data-alca role="slider" tabindex="-1" aria-label="Compare with and without the trick" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"></div>
         </div>
       </div>
       <p class="creditinho">In the waiting room of the Union Station · Jack Delano · Chicago, 1943 · Library of Congress</p>
@@ -305,18 +355,18 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="passos revela">
       <span class="rotulo"><b>Day 08</b> Try it now</span>
       <h2>Your eye was just steered</h2>
-      <div class="passo">
+      <div class="passo" data-passo1>
         <h3>Where did your eye land first?</h3>
         <p>Be honest. Then let the book show you the path it took.</p>
-        <button class="acao" data-mostrar aria-pressed="false">Show me the path</button>
+        <button class="acao" data-mostrar aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 5V2h3M11 2h3v3M14 11v3h-3M5 14H2v-3"/><circle cx="8" cy="8" r="1.6" fill="currentColor" stroke="none"/></svg><span>Show me the path</span><i class="barra-prog"></i></button>
         <ol class="legenda-percurso" data-legenda></ol>
       </div>
-      <div class="passo">
+      <div class="passo" data-passo2>
         <h3>Now take the trick away</h3>
         <p>Same photo, light flattened. Drag the handle across the picture.</p>
-        <button class="acao" data-comparar aria-pressed="false">Remove the trick</button>
+        <button class="acao" data-comparar aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M8 2v12"/></svg><span>Remove the trick</span></button>
       </div>
-      <p class="fecho-demo">The two men sink back into the crowd. <b>That was Day 8. There are 15 more.</b></p>
+      <p class="fecho-demo" data-fecho>The two men sink back into the crowd. <b>That was Day 8. There are 15 more.</b></p>
     </div>
   </div>
 </section>
@@ -488,42 +538,79 @@ const PERCURSO = [[40,13,'The windows, burning white high above.'],[55,45,'Beams
   const cards = $$('.grade li'), cont = $('[data-cont]');
   let vistos = 0;
   const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visto'); io2.unobserve(e.target); vistos++; cont.textContent = String(vistos).padStart(2, '0'); } }), { threshold: .6 });
-  cards.forEach(c => io2.observe(c));
-  // demo: eye path
-  const svg = $('[data-percurso]'), leg = $('[data-legenda]'), foto = $('[data-foto]'), passos = $('.passos');
-  svg.innerHTML = `<polyline points="${PERCURSO.map(p => p[0] + ',' + p[1]).join(' ')}"/>` + PERCURSO.map((p, i) => `<g><circle cx="${p[0]}" cy="${p[1]}" r="3.4"/><text x="${p[0]}" y="${p[1] + .2}">${i + 1}</text></g>`).join('');
-  leg.innerHTML = PERCURSO.map((p, i) => `<li><b>${i + 1}</b>${p[2]}</li>`).join('');
-  const btM = $('[data-mostrar]'), btC = $('[data-comparar]');
-  let timers = [];
+  cards.forEach((c, i) => { io2.observe(c); c.style.setProperty('--d', (i % 4) * .08 + 's');
+    c.querySelectorAll('svg line, svg polyline, svg polygon, svg path, svg rect, svg circle, svg ellipse').forEach(el => { if (el.getAttribute('fill') === 'currentColor' || el.getAttribute('stroke-dasharray')) return; el.setAttribute('pathLength', 1); el.classList.add('tr'); }); });
+  const hudN = $('[data-hud-cont]'); let hn = 0;
+  setTimeout(() => { const t = setInterval(() => { hn++; hudN.textContent = String(hn).padStart(2, '0'); if (hn >= 16) clearInterval(t); }, 55); }, 1300);
+  const pilha = $('.pilha');
+  if (matchMedia('(hover: hover)').matches) $('#topo').addEventListener('pointermove', e => { const r = pilha.getBoundingClientRect(); pilha.style.setProperty('--ry', ((e.clientX - r.left) / r.width - .5) * 10 + 'deg'); pilha.style.setProperty('--rx', -((e.clientY - r.top) / r.height - .5) * 8 + 'deg'); });
+  // demo: eye path, drawn segment by segment with an autofocus box hunting each stop
+  const svg = $('[data-percurso]'), leg = $('[data-legenda]'), foto = $('[data-foto]'), passos = $('.passos'), fecho = $('[data-fecho]');
+  const P = PERCURSO, ALVO = 2, PASSO = 750;
+  const cant = (x, y, sx, sy) => '<path d="M' + x + ',' + (y + 2.4 * sy) + 'V' + y + 'H' + (x + 2.4 * sx) + '"/>';
+  svg.innerHTML = '<defs>' + P.slice(1).map((p, i) => '<mask id="mk' + i + '" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><line class="seg-m" pathLength="1" x1="' + P[i][0] + '" y1="' + P[i][1] + '" x2="' + p[0] + '" y2="' + p[1] + '"/></mask>').join('') + '</defs>'
+    + P.slice(1).map((p, i) => '<line class="seg" x1="' + P[i][0] + '" y1="' + P[i][1] + '" x2="' + p[0] + '" y2="' + p[1] + '" mask="url(#mk' + i + ')"/>').join('')
+    + P.map((p, i) => '<g class="ponto"><circle class="onda" cx="' + p[0] + '" cy="' + p[1] + '" r="3.4"/><circle class="disco" cx="' + p[0] + '" cy="' + p[1] + '" r="3.4"/><text x="' + p[0] + '" y="' + (p[1] + .2) + '">' + (i + 1) + '</text></g>').join('')
+    + '<g class="af-mira"><g>' + cant(-7, -7, 1, 1) + cant(7, -7, -1, 1) + cant(-7, 7, 1, -1) + cant(7, 7, -1, -1) + '<text x="0" y="-8.6">AF LOCKED</text></g></g>';
+  leg.innerHTML = P.map((p, i) => '<li data-i="' + i + '"><b>' + (i + 1) + '</b><span>' + p[2] + '</span></li>').join('');
+  const pontos = [...svg.querySelectorAll('.ponto')], mascaras = [...svg.querySelectorAll('.seg-m')], mira = svg.querySelector('.af-mira'), lis = [...leg.children];
+  const btM = $('[data-mostrar]'), btC = $('[data-comparar]'), rotM = btM.querySelector('span'), rotC = btC.querySelector('span');
+  let timers = [], rodando = false;
+  const focar = i => {
+    const x = P[i][0], y = P[i][1];
+    mira.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    mira.classList.remove('caca'); void mira.getBBox(); mira.classList.add('caca');
+    foto.style.setProperty('--fx', x + '%'); foto.style.setProperty('--fy', y + '%');
+    pontos.forEach((p, k) => p.classList.toggle('atual', k === i)); lis.forEach((l, k) => l.classList.toggle('atual', k === i));
+  };
+  const limpar = () => { timers.forEach(clearTimeout); timers = []; rodando = false; btM.classList.remove('rodando'); };
   const mostrar = on => {
-    timers.forEach(clearTimeout); timers = [];
-    btM.setAttribute('aria-pressed', on); btM.textContent = on ? 'Hide the path' : 'Show me the path';
-    foto.classList.toggle('mostrando', on); passos.classList.toggle('mostrando-leg', on);
-    const gs = [...svg.querySelectorAll('g')], lis = [...leg.children];
-    if (!on) { gs.concat(lis).forEach(e => e.classList.remove('on')); return; }
-    gs.forEach((g, i) => timers.push(setTimeout(() => { g.classList.add('on'); lis[i].classList.add('on'); }, 350 + i * 550)));
+    limpar();
+    btM.setAttribute('aria-pressed', on);
+    foto.classList.toggle('mostrando', on); passos.classList.toggle('mostrando-leg', on); foto.classList.remove('travado');
+    [...pontos, ...mascaras, ...lis].forEach(e => e.classList.remove('on', 'atual'));
+    if (!on) { rotM.textContent = $('[data-passo1]').classList.contains('feito') ? 'Replay the path' : 'Show me the path'; return; }
+    rodando = true; rotM.textContent = 'Tracing your eye…';
+    btM.style.setProperty('--dur', (P.length * PASSO + 400) / 1000 + 's'); void btM.offsetWidth; btM.classList.add('rodando');
+    mira.style.transition = 'none'; focar(0); void mira.getBBox(); mira.style.transition = '';
+    P.forEach((p, i) => timers.push(setTimeout(() => {
+      if (i) mascaras[i - 1].classList.add('on');
+      timers.push(setTimeout(() => { focar(i); pontos[i].classList.add('on'); lis[i].classList.add('on'); }, i ? 380 : 0));
+    }, 300 + i * PASSO)));
+    timers.push(setTimeout(() => {
+      rodando = false; btM.classList.remove('rodando'); focar(ALVO); foto.classList.add('travado');
+      rotM.textContent = 'Hide the path'; $('[data-passo1]').classList.add('feito'); fecho.classList.add('on');
+    }, 300 + P.length * PASSO + 500));
   };
-  // demo: before/after
-  let arrastando = false;
-  const sem = foto.querySelector('.sem'), alca = foto.querySelector('.alca');
-  const setCorte = pct => foto.style.setProperty('--corte', Math.min(100, Math.max(0, pct)) + '%');
-  const comparar = on => {
-    btC.setAttribute('aria-pressed', on); btC.textContent = on ? 'Bring the trick back' : 'Remove the trick';
-    foto.classList.toggle('comparando', on);
-    if (!on) { setCorte(100); return; }
-    mostrar(false); setCorte(100);
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      sem.style.transition = 'clip-path .9s ease'; alca.style.transition = 'left .9s ease, opacity .3s'; setCorte(45);
-      setTimeout(() => { sem.style.transition = ''; alca.style.transition = ''; }, 950);
-    }));
+  lis.forEach(l => l.addEventListener('pointerenter', () => { if (!rodando && l.classList.contains('on')) focar(+l.dataset.i); }));
+  leg.addEventListener('pointerleave', () => { if (!rodando && foto.classList.contains('travado')) focar(ALVO); });
+  // demo: before/after with an automatic sweep
+  let arrastando = false, corte = 100;
+  const alca = foto.querySelector('.alca');
+  const setCorte = pct => { corte = Math.min(100, Math.max(0, pct)); foto.style.setProperty('--corte', corte + '%'); alca.setAttribute('aria-valuenow', Math.round(corte));
+    foto.style.setProperty('--op-com', Math.min(1, corte / 25)); foto.style.setProperty('--op-sem', Math.min(1, (100 - corte) / 25)); };
+  const animarCorte = (para, ms) => new Promise(res => { const de = corte, t0 = performance.now();
+    const passo = t => { const k = Math.min(1, (t - t0) / ms), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; setCorte(de + (para - de) * e); if (k < 1 && !arrastando) requestAnimationFrame(passo); else res(); };
+    requestAnimationFrame(passo); });
+  const comparar = async on => {
+    btC.setAttribute('aria-pressed', on); rotC.textContent = on ? 'Bring the trick back' : 'Remove the trick';
+    alca.tabIndex = on ? 0 : -1;
+    if (!on) { await animarCorte(100, 500); if (btC.getAttribute('aria-pressed') !== 'true') foto.classList.remove('comparando'); return; }
+    mostrar(false); foto.classList.add('comparando'); setCorte(100); alca.classList.remove('tocada');
+    await animarCorte(12, 1100); if (!arrastando && btC.getAttribute('aria-pressed') === 'true') await animarCorte(50, 800);
+    $('[data-passo2]').classList.add('feito'); fecho.classList.add('on');
   };
-  btM.onclick = () => { if (foto.classList.contains('comparando')) comparar(false); mostrar(btM.getAttribute('aria-pressed') !== 'true'); };
+  btM.onclick = () => { if (foto.classList.contains('comparando')) { btC.setAttribute('aria-pressed', false); rotC.textContent = 'Remove the trick'; foto.classList.remove('comparando'); setCorte(100); } mostrar(btM.getAttribute('aria-pressed') !== 'true'); };
   btC.onclick = () => comparar(btC.getAttribute('aria-pressed') !== 'true');
   const mover = e => { if (!arrastando) return; const r = foto.getBoundingClientRect(); setCorte((e.clientX - r.left) / r.width * 100); };
-  foto.addEventListener('pointerdown', e => { if (!foto.classList.contains('comparando')) return; arrastando = true; foto.setPointerCapture(e.pointerId); mover(e); });
+  foto.addEventListener('pointerdown', e => { if (!foto.classList.contains('comparando')) return; arrastando = true; alca.classList.add('tocada'); foto.classList.add('arrastando'); foto.setPointerCapture(e.pointerId); mover(e); });
   foto.addEventListener('pointermove', mover);
-  foto.addEventListener('pointerup', () => arrastando = false);
-  foto.addEventListener('pointercancel', () => arrastando = false);
+  const soltar = () => { arrastando = false; foto.classList.remove('arrastando'); };
+  foto.addEventListener('pointerup', soltar); foto.addEventListener('pointercancel', soltar);
+  alca.addEventListener('keydown', e => { const d = { ArrowLeft: -5, ArrowRight: 5 }[e.key]; if (d) { e.preventDefault(); alca.classList.add('tocada'); setCorte(corte + d); } });
+  // play the path once by itself when the demo first comes into view
+  const ioDemo = new IntersectionObserver(([e]) => { if (e.isIntersecting) { ioDemo.disconnect(); setTimeout(() => { if (btM.getAttribute('aria-pressed') !== 'true' && !foto.classList.contains('comparando')) mostrar(true); }, 900); } }, { threshold: .6 });
+  ioDemo.observe(foto);
   // mobile buy bar after hero
   const barra = $('[data-barra-compra]'), heroi = $('#topo'), final = $('.final');
   let heroiFora = false, finalVisivel = false;
