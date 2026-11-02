@@ -192,6 +192,64 @@ h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px;
 .fecho-demo b { color: var(--amarelo); font-weight: 600; background: linear-gradient(var(--amarelo), var(--amarelo)) no-repeat 0 100% / 0 2px; transition: background-size 1s ease .3s; padding-bottom: 2px; }
 .fecho-demo.on b { background-size: 100% 2px; }
 
+/* tap to guess */
+.dica-toque { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px;
+  background: rgba(15,14,13,.82); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--papel); font: 600 13px var(--mono); white-space: nowrap; pointer-events: none; transition: opacity .4s, transform .4s; }
+.dica-toque svg { width: 18px; height: 18px; color: var(--amarelo); animation: toque 1.6s ease-in-out infinite; }
+@keyframes toque { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.foto.respondeu .dica-toque, .foto.mostrando .dica-toque, .foto.comparando .dica-toque { opacity: 0; transform: translateX(-50%) translateY(8px); }
+.foto:not(.respondeu):not(.mostrando):not(.comparando) { cursor: crosshair; }
+.marca-voce { position: absolute; width: 0; height: 0; pointer-events: none; opacity: 0; transition: opacity .3s; z-index: 2; }
+.marca-voce.on { opacity: 1; }
+.marca-voce i { position: absolute; left: -16px; top: -16px; width: 32px; height: 32px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px rgba(0,0,0,.5), 0 0 18px rgba(255,255,255,.5); animation: marca .5s cubic-bezier(.2,1.6,.4,1); }
+.marca-voce i::after { content: ''; position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: #fff; }
+.marca-voce b { position: absolute; left: 22px; top: -11px; font: 700 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta); background: #fff; padding: 3px 7px; border-radius: 3px; white-space: nowrap; }
+.marca-voce.esq b { left: auto; right: 22px; }
+@keyframes marca { from { transform: scale(2.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.palpite { margin-top: 0; max-height: 0; overflow: hidden; font-size: 17px; color: var(--papel); border-left: 3px solid var(--amarelo); padding-left: 12px; opacity: 0; transition: max-height .6s, opacity .5s, margin-top .6s; }
+.palpite.on { max-height: 120px; opacity: 1; margin-top: 12px; }
+.ou { font: 13px var(--mono); color: var(--cinza); margin-left: 12px; }
+
+/* buy points inside the page */
+.cta-meio { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 26px; opacity: .35; transition: opacity .6s; }
+.cta-meio.on, .cta-meio.sempre { opacity: 1; }
+.cta-meio .comprar { padding: 14px 24px; font-size: 16px; }
+.cta-meio small { font: 13px/1.5 var(--mono); color: var(--cinza); }
+.cta-meio small b { color: var(--papel); }
+.cta-centro { justify-content: center; text-align: center; margin-top: 40px; }
+.cta-centro small { color: var(--suave); }
+.cta-centro small b { color: var(--tinta); }
+
+/* price per trick + guarantee */
+.preco .por { width: 100%; font-size: 13px; color: var(--suave); margin-top: -2px; }
+.escuro .preco .por { color: var(--cinza); }
+.garantia-linha { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font: 600 13px var(--mono); color: var(--suave); }
+.escuro .garantia-linha { color: #cfc8b8; }
+.garantia-linha svg { width: 18px; height: 18px; flex: none; }
+.garantia { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center; max-width: 820px; margin: 0 auto; background: #fffaf2; border: 1px solid var(--fio); border-radius: 10px; padding: 34px; }
+.selo { width: 120px; height: 120px; position: relative; animation: gira 30s linear infinite; }
+.selo-centro { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font: 800 30px/1 var(--mono); color: var(--tinta); }
+.selo-centro small { display: block; font-size: 11px; letter-spacing: .14em; margin-top: 4px; }
+@keyframes gira { to { rotate: 360deg; } }
+.selo-wrap { position: relative; width: 120px; height: 120px; }
+.selo-wrap .selo-centro { animation: none; }
+.garantia h2 { font-size: clamp(26px, 3.6vw, 34px); margin: 4px 0 10px; }
+.garantia p { color: #3a3732; font-size: 17px; }
+
+/* before / after you */
+.lados { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 34px; }
+.lado { border-radius: 10px; padding: 30px; }
+.lado h3 { font: 700 13px var(--mono); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px; }
+.lado ul { list-style: none; display: grid; gap: 14px; }
+.lado li { display: flex; gap: 12px; font-size: 18px; line-height: 1.4; }
+.lado li::before { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font: 700 13px var(--mono); margin-top: 1px; }
+.lado.hoje { background: #e4dccb; color: #4a463e; }
+.lado.hoje h3 { color: var(--suave); }
+.lado.hoje li::before { content: '×'; background: #d3c9b4; color: #6f685a; }
+.lado.depois { background: var(--noite); color: var(--papel); box-shadow: 0 20px 40px rgba(0,0,0,.18); }
+.lado.depois h3 { color: var(--amarelo); }
+.lado.depois li::before { content: '✓'; background: var(--amarelo); color: var(--tinta); }
+
 /* 16 days grid */
 .contador { font: 700 13px var(--mono); letter-spacing: .1em; color: var(--suave); }
 .contador b { color: var(--lapis); }
@@ -301,7 +359,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .grade .nome { font-size: 15px; }
   .grade li { min-height: 128px; }
   .grade svg { width: 36px; height: 36px; }
-  .lista, .dentro, .formato { grid-template-columns: 1fr; }
+  .lista, .dentro, .formato, .lados { grid-template-columns: 1fr; }
+  .garantia { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 28px 22px; }
+  .cta-meio .comprar { width: 100%; }
+  .ou { display: block; margin: 10px 0 0; }
   .dentro { gap: 40px; }
   .heroi .comprar, .final .comprar { width: 100%; }
   .barra-compra { display: flex; }
@@ -328,6 +389,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="preco" data-preco></div>
       <a class="comprar" href="#" data-comprar>Get the book <span class="seta">→</span></a>
       <p class="nota-compra">Instant PDF download · Secure checkout by Gumroad</p>
+      <span class="garantia-linha"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M10 2l6.5 2.5v4.8c0 4-2.8 7.2-6.5 8.7-3.7-1.5-6.5-4.7-6.5-8.7V4.5z"/><path d="M7 10l2.2 2.2L13.5 8" stroke="#E8432E" stroke-width="2"/></svg>30-day money-back guarantee</span>
       <div class="selos"><span>112 pages</span><span>16 real photographs</span><span>10 minutes a day</span></div>
     </div>
     <div class="pilha">
@@ -357,6 +419,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <div class="holofote"><i></i></div>
           <svg class="percurso" viewBox="0 0 100 100" aria-hidden="true" data-percurso></svg>
           <div class="mira-af" aria-hidden="true"><div class="c"><span></span><span></span><span></span><span></span></div><b>AF LOCKED</b></div>
+          <span class="dica-toque" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5a2 2 0 0 1 4 0v5"/><path d="M13 9.5a2 2 0 0 1 4 0V12"/><path d="M17 11a2 2 0 0 1 3 1.7V15a7 7 0 0 1-7 7h-1.2a6 6 0 0 1-4.6-2.2L4 16.5a2 2 0 0 1 3-2.6L9 16"/></svg>Tap where your eye landed first</span>
+          <div class="marca-voce" data-marca><i></i><b>You</b></div>
           <span class="etq com">With the trick</span><span class="etq sem2">Trick removed</span>
           <div class="alca" data-alca role="slider" tabindex="-1" aria-label="Compare with and without the trick" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"></div>
         </div>
@@ -368,8 +432,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <h2>Your eye was just steered</h2>
       <div class="passo" data-passo1>
         <h3>Where did your eye land first?</h3>
-        <p>Be honest. Then let the book show you the path it took.</p>
-        <button class="acao" data-mostrar aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 5V2h3M11 2h3v3M14 11v3h-3M5 14H2v-3"/><circle cx="8" cy="8" r="1.6" fill="currentColor" stroke="none"/></svg><span>Show me the path</span><i class="barra-prog"></i></button>
+        <p>Be honest: tap that spot on the photo. Then watch the path the photographer planned for you.</p>
+        <button class="acao" data-mostrar aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 5V2h3M11 2h3v3M14 11v3h-3M5 14H2v-3"/><circle cx="8" cy="8" r="1.6" fill="currentColor" stroke="none"/></svg><span>Show me the path</span><i class="barra-prog"></i></button><span class="ou" data-ou>or tap the photo</span>
+        <p class="palpite" data-palpite></p>
         <ol class="legenda-percurso" data-legenda></ol>
       </div>
       <div class="passo" data-passo2>
@@ -378,6 +443,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <button class="acao" data-comparar aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M8 2v12"/></svg><span>Remove the trick</span></button>
       </div>
       <p class="fecho-demo" data-fecho>The two men sink back into the crowd. <b>That was Day 8. There are 15 more.</b></p>
+      <div class="cta-meio" data-cta-demo><a class="comprar" href="#" data-comprar>Get all 16 days <span class="seta">→</span></a><small data-preco-curto></small></div>
     </div>
   </div>
 </section>
@@ -407,6 +473,19 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <li><span class="n">15</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="6" fill="currentColor"/><line x1="50" y1="38" x2="50" y2="6"/><line x1="50" y1="62" x2="50" y2="94"/><line x1="38" y1="50" x2="6" y2="50"/><line x1="62" y1="50" x2="94" y2="50"/><line x1="41" y1="41" x2="18" y2="18"/><line x1="59" y1="59" x2="82" y2="82"/><line x1="59" y1="41" x2="82" y2="18"/><line x1="41" y1="59" x2="18" y2="82"/></g></svg><span class="nome">Spokes to the center</span></li>
       <li><span class="n">16</span><svg aria-hidden="true" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M50,50 m0,-4 a4,4 0 1,1 -4,4 a8,8 0 0,1 8,-8 a14,14 0 0,1 14,14 a24,24 0 0,1 -24,24 a38,38 0 0,1 -38,-38"/></g></svg><span class="nome">The coil</span></li>
     </ol>
+    <div class="lados revela">
+      <div class="lado hoje"><h3>Today</h3><ul>
+        <li>A photo stops your thumb and you can't say why.</li>
+        <li>Your phone shots look flat and you don't know what's missing.</li>
+        <li>You put the subject in the middle, every time.</li>
+      </ul></div>
+      <div class="lado depois"><h3>After 16 days</h3><ul>
+        <li>You name the trick in three seconds.</li>
+        <li>You know which trick a shot needs before you take it.</li>
+        <li>You steer where people look, on purpose.</li>
+      </ul></div>
+    </div>
+    <div class="cta-meio cta-centro sempre revela"><a class="comprar" href="#" data-comprar>Start Day 1 today <span class="seta">→</span></a><small data-preco-curto></small></div>
   </div>
 </section>
 
@@ -473,6 +552,24 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   </div>
 </section>
 
+<section class="papel2">
+  <div class="wrap revela">
+    <div class="garantia">
+      <div class="selo-wrap" aria-hidden="true">
+        <svg class="selo" viewBox="0 0 120 120"><defs><path id="circulo" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+          <circle cx="60" cy="60" r="58" fill="#FFD000"/><circle cx="60" cy="60" r="34" fill="none" stroke="#161513" stroke-width="1.5" stroke-dasharray="2 3"/>
+          <text font-family="Inter, sans-serif" font-size="10.5" font-weight="700" letter-spacing="2.6" fill="#161513"><textPath href="#circulo">MONEY-BACK GUARANTEE · MONEY-BACK GUARANTEE ·</textPath></text></svg>
+        <div class="selo-centro">30<small>DAYS</small></div>
+      </div>
+      <div>
+        <span class="rotulo">Zero risk</span>
+        <h2>Do all 16 days. If it doesn't change how you see photos, get your money back.</h2>
+        <p>You have 30 days to ask for a full refund. No forms, no questions: just reply to your Gumroad receipt or send a DM to @domfolk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="faq">
   <div class="wrap">
     <span class="rotulo">Questions</span>
@@ -482,6 +579,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <details><summary>How do I get the book?</summary><p>Right after checkout, Gumroad gives you the download link and emails it to you. You can download it again any time from that email.</p></details>
     <details><summary>Are the photos real?</summary><p>Yes. All 19 photographs in the book are real archive photos, credited, with sources listed for every fact. Nothing is AI-generated, including the cover.</p></details>
     <details><summary>Can I fill it in on an iPhone?</summary><p>Yes, with the free Adobe Acrobat Reader app. Apple Books will show the pages but won't let you type, so use Acrobat, paper, or answer out loud.</p></details>
+    <details><summary>What if it isn't for me?</summary><p>Then you get your money back. You have 30 days to ask for a full refund: reply to your Gumroad receipt or send a DM to @domfolk.</p></details>
+    <details><summary>I already shoot a lot. Is it too basic?</summary><p>The first days cover classics you may know by name, but every day is built on one famous photograph, its real story and a test that removes the trick. The checkpoints and the final test will show you quickly what you really see, and the guarantee covers you if it's not for you.</p></details>
+    <details><summary>Can I give it as a gift?</summary><p>Yes. Gumroad lets you send it as a gift at checkout: the book goes to the other person's email.</p></details>
     <details><summary>Another question?</summary><p>Send a DM to <a href="https://instagram.com/domfolk">@domfolk</a> on Instagram.</p></details>
   </div>
 </section>
@@ -494,6 +594,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="preco" data-preco></div>
     <a class="comprar" href="#" data-comprar>Get the book <span class="seta">→</span></a>
     <p class="nota-compra">Instant PDF download · Secure checkout by Gumroad</p>
+      <span class="garantia-linha"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M10 2l6.5 2.5v4.8c0 4-2.8 7.2-6.5 8.7-3.7-1.5-6.5-4.7-6.5-8.7V4.5z"/><path d="M7 10l2.2 2.2L13.5 8" stroke="#E8432E" stroke-width="2"/></svg>30-day money-back guarantee</span>
   </div>
 </section>
 
@@ -526,8 +627,10 @@ const PERCURSO = [[40,13,'The windows, burning white high above.'],[55,45,'Beams
   const emLancamento = fim && new Date() <= fim;
   const dataFim = fim ? fim.toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) : '';
   $$('[data-preco]').forEach(e => e.innerHTML = emLancamento
-    ? `<span class="agora">$${VENDA.lancamento}</span><span class="antes">$${VENDA.preco}</span><span class="ate">Launch price until ${dataFim}, then $${VENDA.preco}</span>`
-    : `<span class="agora">$${VENDA.preco}</span>`);
+    ? `<span class="agora">$${VENDA.lancamento}</span><span class="antes">$${VENDA.preco}</span><span class="ate">Launch price until ${dataFim}, then $${VENDA.preco}</span><span class="por">That's $${(VENDA.lancamento / 16).toFixed(2)} a trick.</span>`
+    : `<span class="agora">$${VENDA.preco}</span><span class="por">That's $${(VENDA.preco / 16).toFixed(2)} a trick.</span>`);
+  const precoAtual = emLancamento ? VENDA.lancamento : VENDA.preco;
+  $$('[data-preco-curto]').forEach(e => e.innerHTML = `<b>$${precoAtual}</b>${emLancamento ? ` launch price, then $${VENDA.preco}` : ''} · 30-day money-back guarantee`);
   $('[data-preco-mini]').innerHTML = emLancamento ? `$${VENDA.lancamento}<s>$${VENDA.preco}</s><small>Launch price until ${dataFim}</small>` : `$${VENDA.preco}`;
   const url = VENDA.produto + (VENDA.produto.includes('?') ? '&' : '?') + 'wanted=true';
   $$('[data-comprar]').forEach(a => a.href = url);
@@ -556,7 +659,7 @@ const PERCURSO = [[40,13,'The windows, burning white high above.'],[55,45,'Beams
   const pilha = $('.pilha');
   if (matchMedia('(hover: hover)').matches) $('#topo').addEventListener('pointermove', e => { const r = pilha.getBoundingClientRect(); pilha.style.setProperty('--ry', ((e.clientX - r.left) / r.width - .5) * 10 + 'deg'); pilha.style.setProperty('--rx', -((e.clientY - r.top) / r.height - .5) * 8 + 'deg'); });
   // demo: eye path, drawn segment by segment with an autofocus box hunting each stop
-  const svg = $('[data-percurso]'), leg = $('[data-legenda]'), foto = $('[data-foto]'), passos = $('.passos'), fecho = $('[data-fecho]');
+  const svg = $('[data-percurso]'), leg = $('[data-legenda]'), foto = $('[data-foto]'), passos = $('.passos'), fecho = $('[data-fecho]'), ctaDemo = $('[data-cta-demo]');
   const P = PERCURSO, ALVO = 2;
   const caminho = P.map(p => p[0] + ',' + p[1]).join(' ');
   svg.innerHTML = '<defs><mask id="mk" maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="120"><polyline class="seg-m" pathLength="1" points="' + caminho + '"/></mask></defs>'
@@ -603,7 +706,7 @@ const PERCURSO = [[40,13,'The windows, burning white high above.'],[55,45,'Beams
           moverPara(a[0] + (b[0] - a[0]) * e, a[1] + (b[1] - a[1]) * e);
           if (k >= 1) {
             rodando = false; btM.classList.remove('rodando'); focoAtual = ALVO; marcar(ALVO); cacar(); foto.classList.add('travado');
-            rotM.textContent = 'Hide the path'; $('[data-passo1]').classList.add('feito'); fecho.classList.add('on');
+            rotM.textContent = 'Hide the path'; $('[data-passo1]').classList.add('feito'); fecho.classList.add('on'); ctaDemo.classList.add('on');
             return;
           }
         }
@@ -633,11 +736,11 @@ const PERCURSO = [[40,13,'The windows, burning white high above.'],[55,45,'Beams
     btC.setAttribute('aria-pressed', on); rotC.textContent = on ? 'Bring the trick back' : 'Remove the trick';
     alca.tabIndex = on ? 0 : -1;
     if (!on) { await animarCorte(100, 500); if (btC.getAttribute('aria-pressed') !== 'true') foto.classList.remove('comparando'); return; }
-    mostrar(false); foto.classList.add('comparando'); setCorte(100); alca.classList.remove('tocada');
+    mostrar(false); marca.classList.remove('on'); foto.classList.add('comparando', 'respondeu'); setCorte(100); alca.classList.remove('tocada');
     if (await animarCorte(12, 1100) && !arrastando && btC.getAttribute('aria-pressed') === 'true') await animarCorte(50, 800);
-    $('[data-passo2]').classList.add('feito'); fecho.classList.add('on');
+    $('[data-passo2]').classList.add('feito'); fecho.classList.add('on'); ctaDemo.classList.add('on');
   };
-  btM.onclick = () => { if (foto.classList.contains('comparando')) { btC.setAttribute('aria-pressed', false); rotC.textContent = 'Remove the trick'; foto.classList.remove('comparando'); setCorte(100); } mostrar(btM.getAttribute('aria-pressed') !== 'true'); };
+  btM.onclick = () => { ou.hidden = true; foto.classList.add('respondeu'); if (foto.classList.contains('comparando')) { btC.setAttribute('aria-pressed', false); rotC.textContent = 'Remove the trick'; foto.classList.remove('comparando'); setCorte(100); } mostrar(btM.getAttribute('aria-pressed') !== 'true'); };
   btC.onclick = () => comparar(btC.getAttribute('aria-pressed') !== 'true');
   const mover = e => { if (!arrastando) return; const r = foto.getBoundingClientRect(); setCorte((e.clientX - r.left) / r.width * 100); };
   foto.addEventListener('pointerdown', e => { if (!foto.classList.contains('comparando')) return; animId++; arrastando = true; alca.classList.add('tocada'); foto.classList.add('arrastando'); foto.setPointerCapture(e.pointerId); mover(e); });
@@ -645,9 +748,24 @@ const PERCURSO = [[40,13,'The windows, burning white high above.'],[55,45,'Beams
   const soltar = () => { arrastando = false; foto.classList.remove('arrastando'); };
   foto.addEventListener('pointerup', soltar); foto.addEventListener('pointercancel', soltar);
   alca.addEventListener('keydown', e => { const d = { ArrowLeft: -5, ArrowRight: 5 }[e.key]; if (d) { e.preventDefault(); alca.classList.add('tocada'); setCorte(corte + d); } });
-  // play the path once by itself when the demo first comes into view
-  const ioDemo = new IntersectionObserver(([e]) => { if (e.isIntersecting) { ioDemo.disconnect(); setTimeout(() => { if (btM.getAttribute('aria-pressed') !== 'true' && !foto.classList.contains('comparando')) mostrar(true); }, 900); } }, { threshold: .6 });
-  ioDemo.observe(foto);
+  // tap to guess: the reader marks where their eye landed, then the real path plays from there
+  const marca = $('[data-marca]'), palpite = $('[data-palpite]'), ou = $('[data-ou]');
+  const FRASES = [
+    'You landed on the windows, the brightest thing in the frame. Delano exposed for that light.',
+    'You landed on the beams. They were built to pull your eye down into the room.',
+    'You landed on the two men, exactly where the light lands. That was the photographer\'s target.',
+    'You landed on the pool of light. The beams carried your eye down to the floor.',
+    'You found the crowd first. Most of this picture is built to hide it.'];
+  foto.addEventListener('click', e => {
+    if (rodando || foto.classList.contains('comparando') || foto.classList.contains('mostrando')) return;
+    const r = foto.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * 100, y = (e.clientY - r.top) / r.height * 100;
+    marca.style.left = x + '%'; marca.style.top = y + '%'; marca.classList.toggle('esq', x > 70);
+    marca.classList.remove('on'); void marca.offsetWidth; marca.classList.add('on');
+    let perto = 0, menor = 1e9; P.forEach((p, i) => { const d = Math.hypot(p[0] - x, p[1] - y); if (d < menor) { menor = d; perto = i; } });
+    palpite.textContent = menor < 20 ? FRASES[perto] : 'Interesting choice. Now watch where the photographer wanted you to look.';
+    palpite.classList.add('on'); foto.classList.add('respondeu'); ou.hidden = true;
+    setTimeout(() => mostrar(true), 1100);
+  });
   // mobile buy bar after hero
   const barra = $('[data-barra-compra]'), heroi = $('#topo'), final = $('.final');
   let heroiFora = false, finalVisivel = false;
