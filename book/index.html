@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16 Tricks Your Eye Never Notices · @domfolk</title>
+<meta name="description" content="How the most famous photos steer your eye, and how to use the same tricks with your phone. A 16-day photo book by @domfolk.">
+<meta property="og:title" content="16 Tricks Your Eye Never Notices">
+<meta property="og:description" content="How the most famous photos steer your eye, and how to use the same tricks with your phone.">
+<meta property="og:image" content="https://domfolk.com/book/img/og.jpg">
+<meta property="og:url" content="https://domfolk.com/book/">
+<meta property="og:type" content="product">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/dF.svg" type="image/svg+xml">
+<style>
+@font-face { font-family: 'Source Serif'; src: url(../fonts/SourceSerif4.woff2) format("woff2"); font-weight: 200 900; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url(../fonts/Inter.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+:root { --papel: #f3eee4; --papel2: #ebe4d6; --tinta: #161513; --suave: #7a7362; --fio: #d6cdbb;
+  --noite: #0f0e0d; --noite2: #1c1a17; --amarelo: #FFD000; --lapis: #E8432E;
+  --serifa: 'Source Serif', Georgia, serif; --mono: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--papel); color: var(--tinta); font: 18px/1.55 var(--serifa); -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+.mono { font-family: var(--mono); font-size: 13px; letter-spacing: .02em; color: var(--suave); }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+section { padding: 72px 0; }
+h1, h2, h3 { font-weight: 600; line-height: 1.12; letter-spacing: -.01em; }
+h2 { font-size: clamp(30px, 5vw, 44px); margin: 6px 0 18px; }
+.lead { font-size: clamp(19px, 2.4vw, 22px); color: #3a3732; max-width: 640px; }
+
+/* top bar */
+.barra { position: sticky; top: 0; z-index: 10; background: rgba(15,14,13,.94); backdrop-filter: blur(6px); color: var(--papel); }
+.barra .wrap { display: flex; align-items: center; justify-content: space-between; height: 54px; }
+.barra .marca { display: flex; align-items: center; gap: 10px; font: 500 14px var(--mono); text-decoration: none; }
+.barra .marca img { width: 26px; filter: invert(1); }
+.barra .comprar { padding: 8px 16px; font-size: 14px; }
+
+/* buttons + price */
+.comprar { display: inline-block; background: var(--amarelo); color: var(--tinta); font: 700 17px var(--mono); text-decoration: none;
+  padding: 16px 30px; border-radius: 6px; transition: transform .15s; }
+.comprar:hover { transform: translateY(-2px); }
+.preco { display: flex; align-items: baseline; gap: 12px; margin: 22px 0 14px; font-family: var(--mono); }
+.preco .agora { font-size: 40px; font-weight: 700; }
+.preco .antes { font-size: 22px; color: var(--suave); text-decoration: line-through; }
+.preco .ate { font-size: 14px; color: var(--lapis); font-weight: 600; }
+.escuro .preco .antes { color: #9b9384; }
+.nota-compra { font: 13px/1.5 var(--mono); color: var(--suave); margin-top: 12px; }
+.escuro .nota-compra { color: #9b9384; }
+
+/* hero */
+.escuro { background: var(--noite); color: var(--papel); }
+.heroi { padding: 56px 0 80px; }
+.heroi .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.heroi h1 { font-size: clamp(40px, 6.4vw, 66px); margin: 12px 0 18px; }
+.heroi h1 em { font-style: normal; color: var(--amarelo); }
+.heroi .lead { color: #cfc8b8; }
+.heroi .mono { color: var(--amarelo); }
+.capa { position: relative; max-width: 420px; justify-self: center; }
+.capa img { border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,.6), 0 0 0 1px #2a2723; }
+.selos { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 22px; font: 13px var(--mono); color: #9b9384; }
+.selos span::before { content: '■ '; color: var(--amarelo); font-size: 9px; vertical-align: 2px; }
+
+/* hook */
+.gancho { text-align: center; }
+.gancho p.grande { font-size: clamp(26px, 4vw, 38px); line-height: 1.25; max-width: 760px; margin: 0 auto; }
+.gancho p.grande b { background: linear-gradient(transparent 62%, var(--amarelo) 62%); font-weight: 600; }
+.gancho .lead { margin: 22px auto 0; }
+
+/* day carousel */
+.dia { background: var(--papel2); }
+.trilho { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 26px 22px 18px; margin: 0 -22px; }
+.trilho figure { flex: 0 0 min(72vw, 300px); scroll-snap-align: start; }
+.trilho img { border-radius: 3px; box-shadow: 0 10px 26px rgba(0,0,0,.18); }
+.trilho figcaption { margin-top: 12px; font-size: 16px; }
+.trilho figcaption b { display: block; font: 600 13px var(--mono); color: var(--suave); margin-bottom: 2px; }
+.dica-arraste { font: 13px var(--mono); color: var(--suave); }
+
+/* 16 days */
+.dias { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 40px; margin-top: 30px; list-style: none; }
+.dias li { display: grid; grid-template-columns: 38px 1fr; gap: 4px 10px; padding: 14px 0; border-top: 1px solid var(--fio); }
+.dias .n { font: 600 14px var(--mono); color: var(--suave); padding-top: 4px; }
+.dias b { font-size: 19px; font-weight: 600; }
+.dias small { grid-column: 2; font-size: 15px; color: var(--suave); }
+
+/* inside */
+.dentro { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 34px; }
+.dentro figure img { border-radius: 3px; box-shadow: 0 10px 26px rgba(0,0,0,.16); }
+.dentro figcaption { margin-top: 12px; font-size: 16px; }
+.dentro figcaption b { display: block; font-size: 19px; }
+.lista { list-style: none; margin-top: 34px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 40px; }
+.lista li { padding-left: 26px; position: relative; }
+.lista li::before { content: ''; position: absolute; left: 0; top: 9px; width: 12px; height: 12px; border: 2px solid var(--lapis); border-radius: 50%; }
+
+/* format */
+.formato { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 30px; }
+.formato div { background: #fff8; border: 1px solid var(--fio); border-radius: 6px; padding: 22px; }
+.formato h3 { font-size: 21px; margin-bottom: 8px; }
+.formato p { font-size: 16px; color: #3a3732; }
+
+/* faq */
+.faq details { border-top: 1px solid var(--fio); padding: 18px 0; }
+.faq details:last-child { border-bottom: 1px solid var(--fio); }
+.faq summary { font-size: 20px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::after { content: '+'; font-family: var(--mono); color: var(--suave); }
+.faq details[open] summary::after { content: '–'; }
+.faq details p { margin-top: 10px; color: #3a3732; max-width: 720px; }
+
+/* final */
+.final { text-align: center; }
+.final .preco { justify-content: center; }
+.final img.mini { width: 180px; margin: 0 auto 26px; border-radius: 3px; box-shadow: 0 20px 40px rgba(0,0,0,.6); }
+footer { background: var(--noite); color: #9b9384; font: 13px/1.6 var(--mono); padding: 28px 0 40px; border-top: 1px solid #2a2723; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+
+@media (max-width: 760px) {
+  body { font-size: 17px; }
+  section { padding: 56px 0; }
+  .heroi { padding: 34px 0 60px; }
+  .heroi .wrap { grid-template-columns: 1fr; gap: 34px; }
+  .capa { max-width: 270px; order: -1; }
+  .dias, .lista, .dentro, .formato { grid-template-columns: 1fr; }
+  .dentro { gap: 34px; }
+  .comprar { display: block; text-align: center; }
+  .barra .comprar { display: inline-block; }
+}
+</style>
+</head>
+<body>
+
+<header class="barra">
+  <div class="wrap">
+    <a class="marca" href="#topo"><img src="img/dF.svg" alt="">@domfolk</a>
+    <a class="comprar" href="#" data-comprar>Get the book</a>
+  </div>
+</header>
+
+<section class="escuro heroi" id="topo">
+  <div class="wrap">
+    <div>
+      <p class="mono">A 16-day photo book by @domfolk</p>
+      <h1>16 Tricks Your Eye <em>Never</em> Notices</h1>
+      <p class="lead">How the most famous photos steer your eye, and how to use the same tricks with your phone.</p>
+      <div class="preco" data-preco></div>
+      <a class="comprar" href="#" data-comprar>Get the book</a>
+      <p class="nota-compra">Instant PDF download · Phone, tablet or computer · Secure checkout by Gumroad</p>
+      <div class="selos"><span>112 pages</span><span>16 real photographs</span><span>10 minutes a day</span></div>
+    </div>
+    <div class="capa"><img src="img/capa.jpg" width="900" height="1350" alt="Cover of 16 Tricks Your Eye Never Notices"></div>
+  </div>
+</section>
+
+<section class="gancho">
+  <div class="wrap">
+    <p class="mono">Before you scroll on</p>
+    <p class="grande" style="margin-top:14px">Think of the last photo that stopped your thumb. You think you chose where to look. <b>You didn't. A photographer did.</b></p>
+    <p class="lead">Sometimes a hundred years ago, with tricks so simple nobody notices them: a line, a shadow, a color, a face that looks back. This book shows you all sixteen, one a day. Once you see them, you can't stop seeing them.</p>
+  </div>
+</section>
+
+<section class="dia">
+  <div class="wrap">
+    <p class="mono">What one day looks like</p>
+    <h2>Five pages. Ten minutes. One trick you'll never unsee.</h2>
+    <p class="lead">Every day follows the same path, so you always know where you are.</p>
+    <div class="trilho">
+      <figure><img src="img/caso1_1.jpg" width="900" height="1350" loading="lazy" alt="Day 1 opening page"><figcaption><b>1 · The question</b>A famous photo and something you didn't notice.</figcaption></figure>
+      <figure><img src="img/caso8_2.jpg" width="900" height="1350" loading="lazy" alt="Eye path page"><figcaption><b>2 · Where your eye travels</b>The exact path your eye took, numbered, and the rule in one line.</figcaption></figure>
+      <figure><img src="img/caso3_3.jpg" width="900" height="1350" loading="lazy" alt="Details page"><figcaption><b>3 · The details</b>What hides in the corners, and the real story behind the picture.</figcaption></figure>
+      <figure><img src="img/caso1_4.jpg" width="900" height="1350" loading="lazy" alt="Test and mission page"><figcaption><b>4 · Test the trick</b>The same photo with the trick removed. Then a mission for your phone.</figcaption></figure>
+      <figure><img src="img/caso4_5.jpg" width="900" height="1350" loading="lazy" alt="Notebook page"><figcaption><b>5 · Your notebook</b>Write the rule, say it in your words, sketch it, shoot it.</figcaption></figure>
+    </div>
+    <p class="dica-arraste">Swipe →</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="mono">The 16 days</p>
+    <h2>Sixteen tricks, sixteen photographs you already know</h2>
+    <ol class="dias">
+      <li><span class="n">01</span><b>The triangle</b><small>Pelé carried off after the 1970 World Cup final</small></li>
+      <li><span class="n">02</span><b>Lines that point</b><small>A welder in a Chicago freight yard, 1943</small></li>
+      <li><span class="n">03</span><b>The diagonal</b><small>The V-J Day kiss in Times Square, 1945</small></li>
+      <li><span class="n">04</span><b>The one who looks back</b><small>Feynman and Oppenheimer at Los Alamos</small></li>
+      <li><span class="n">05</span><b>The frame inside the frame</b><small>Princess Elizabeth as a wartime mechanic, 1945</small></li>
+      <li><span class="n">06</span><b>The picture inside the picture</b><small>Buzz Aldrin on the Moon, 1969</small></li>
+      <li><span class="n">07</span><b>One dark shape</b><small>Churchill on a battleship deck, 1941 · solo day, no arrows</small></li>
+      <li><span class="n">08</span><b>Light as a spotlight</b><small>Chicago's Union Station, 1943</small></li>
+      <li><span class="n">09</span><b>Pattern and scale</b><small>Wall Street by Paul Strand, 1915</small></li>
+      <li><span class="n">10</span><b>One color rules</b><small>The Emir of Bukhara in early color, 1911</small></li>
+      <li><span class="n">11</span><b>The center seat</b><small>The Big Three at Yalta, 1945</small></li>
+      <li><span class="n">12</span><b>The heavier half</b><small>Cruyff and Beckenbauer, 1974 World Cup final</small></li>
+      <li><span class="n">13</span><b>Thirds, not halves</b><small>Tractored Out by Dorothea Lange, 1938</small></li>
+      <li><span class="n">14</span><b>The slow S</b><small>The Tetons and the Snake River by Ansel Adams, 1942</small></li>
+      <li><span class="n">15</span><b>Spokes to the center</b><small>The Library of Congress dome</small></li>
+      <li><span class="n">16</span><b>The coil</b><small>Hurricane Isabel from the Space Station, 2003</small></li>
+    </ol>
+  </div>
+</section>
+
+<section class="dia">
+  <div class="wrap">
+    <p class="mono">More than reading</p>
+    <h2>A book that checks if you really learned it</h2>
+    <div class="dentro">
+      <figure><img src="img/checkpoint4.jpg" width="900" height="1350" loading="lazy" alt="Checkpoint page"><figcaption><b>3 checkpoints</b>After Days 4, 8 and 12: details from earlier photos. Which day, and what job do they do?</figcaption></figure>
+      <figure><img src="img/prova2_q.jpg" width="900" height="1350" loading="lazy" alt="Final test page"><figcaption><b>A final test</b>Three photos you've never seen in the book, with a full answer key and a score out of 12.</figcaption></figure>
+      <figure><img src="img/fichas1.jpg" width="900" height="1350" loading="lazy" alt="Field Guide page"><figcaption><b>The Field Guide</b>Every trick on a card: what it does, how to spot it in 3 seconds, and the phone recipe.</figcaption></figure>
+    </div>
+    <ul class="lista">
+      <li>16 phone missions, one photo each</li>
+      <li>Day 0: a snapshot of how you see today, graded again at the end</li>
+      <li>A printable phone checklist and a contact sheet for your 16 shots</li>
+      <li>Real archive photographs only, from NASA, the Library of Congress and other archives. No AI images.</li>
+      <li>Every story is sourced, with the full list at the back</li>
+      <li>No experience or camera needed: just the phone in your pocket</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="mono">How you'll read it</p>
+    <h2>Made for your phone, and for paper</h2>
+    <div class="formato">
+      <div><h3>Read anywhere</h3><p>A 6×9 in PDF, 112 pages. Opens on any phone, tablet or computer.</p></div>
+      <div><h3>Fill it in on your phone</h3><p>Every line, box and score can be typed in with the free Adobe Acrobat Reader app. Some readers, like Apple Books, show the pages but won't let you type.</p></div>
+      <div><h3>Or print it</h3><p>Every exercise also works on paper: print the pages and answer with a pen, or just answer out loud.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="wrap">
+    <p class="mono">Questions</p>
+    <h2>Before you buy</h2>
+    <details><summary>Is this for photographers?</summary><p>It's for anyone who looks at photos, which is everyone. You don't need to know any photography terms; every trick is explained with one famous picture and tested with your phone.</p></details>
+    <details><summary>Do I need a camera?</summary><p>No. Every mission is designed for the phone in your pocket.</p></details>
+    <details><summary>How do I get the book?</summary><p>Right after checkout, Gumroad gives you the download link and emails it to you. You can download it again any time from that email.</p></details>
+    <details><summary>Are the photos real?</summary><p>Yes. All 19 photographs in the book are real archive photos, credited, with sources listed for every fact. Nothing is AI-generated, including the cover.</p></details>
+    <details><summary>Can I fill it in on an iPhone?</summary><p>Yes, with the free Adobe Acrobat Reader app. Apple Books will show the pages but won't let you type, so use Acrobat, paper, or answer out loud.</p></details>
+    <details><summary>Another question?</summary><p>Send a DM to <a href="https://instagram.com/domfolk">@domfolk</a> on Instagram.</p></details>
+  </div>
+</section>
+
+<section class="escuro final">
+  <div class="wrap">
+    <img class="mini" src="img/capa.jpg" width="900" height="1350" loading="lazy" alt="">
+    <h2>Your eye has been steered your whole life.<br>Sixteen days to see how.</h2>
+    <div class="preco" data-preco></div>
+    <a class="comprar" href="#" data-comprar>Get the book</a>
+    <p class="nota-compra">Instant PDF download · Secure checkout by Gumroad</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span data-ano></span> @domfolk</span>
+    <a href="https://instagram.com/domfolk">instagram.com/domfolk</a>
+  </div>
+</footer>
+
+<script>
+// ===== Configuração da venda: edite só aqui =====
+const VENDA = {
+  produto: 'https://lsa717108.gumroad.com/l/cucpy', // link do produto na Gumroad
+  preco: 19,               // preço normal (US$)
+  lancamento: 15,          // preço de lançamento (US$)
+  fimLancamento: '2026-11-16'     // último dia do lançamento, ex.: '2026-11-16' (null = sem promoção, mostra o preço normal)
+};
+// =================================================
+(function () {
+  const fim = VENDA.fimLancamento ? new Date(VENDA.fimLancamento + 'T23:59:59') : null;
+  const emLancamento = fim && new Date() <= fim;
+  const dataFim = fim ? fim.toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) : '';
+  const html = emLancamento
+    ? `<span class="agora">$${VENDA.lancamento}</span><span class="antes">$${VENDA.preco}</span><span class="ate">Launch price until ${dataFim}</span>`
+    : `<span class="agora">$${VENDA.preco}</span>`;
+  document.querySelectorAll('[data-preco]').forEach(e => e.innerHTML = html);
+  const url = VENDA.produto + (VENDA.produto.includes('?') ? '&' : '?') + 'wanted=true';
+  document.querySelectorAll('[data-comprar]').forEach(a => a.href = url);
+  document.querySelectorAll('[data-ano]').forEach(e => e.textContent = new Date().getFullYear());
+})();
+</script>
+</body>
+</html>

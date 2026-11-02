@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 40 744 636">
+  <!-- monograma dF do @domfolk, redesenhado em vetor a partir de DOMFOLKPNG.png (mesmas proporções, hastes a prumo,
+       barras niveladas). As peças se sobrepõem à haste para não sobrar emenda: é uma letra só. -->
+  <g fill="currentColor">
+    <rect x="327" y="48" width="163" height="620"/>
+    <path d="M238,48 H776 V236 H752 C744,160 712,100 648,95 H470 V110 H327 C327,80 300,64 238,60 Z"/>
+    <path d="M470,340 H562 C600,335 628,290 636,226 H660 V515 H638 C630,450 600,382 525,376 H470 Z"/>
+    <path d="M250,668 H582 V650 C540,648 505,640 490,620 H470 V600 H340 V620 H327 C315,640 290,650 250,652 Z"/>
+    <path fill-rule="evenodd" d="M345,347 H327 C180,345 48,420 48,507 C48,610 160,668 280,668 H345 Z M332,366 C250,366 190,440 190,507 C190,580 240,642 300,642 C318,642 330,636 332,628 Z"/>
+  </g>
+</svg>
