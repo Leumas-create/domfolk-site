@@ -13,10 +13,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0f0e0d">
 <link rel="icon" href="img/dF.svg" type="image/svg+xml">
-<link rel="preload" href="../fonts/SourceSerif4.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/SourceSerif4-sub.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-@font-face { font-family: 'Source Serif'; src: url(../fonts/SourceSerif4.woff2) format("woff2"); font-weight: 200 900; font-display: swap; }
-@font-face { font-family: 'Inter'; src: url(../fonts/Inter.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: 'Source Serif'; src: url(../fonts/SourceSerif4-sub.woff2) format("woff2"); font-weight: 200 900; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url(../fonts/Inter-sub.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
 :root { --papel: #f3eee4; --papel2: #ebe4d6; --tinta: #161513; --suave: #7a7362; --fio: #d6cdbb;
   --noite: #0f0e0d; --noite2: #1c1a17; --cinza: #9b9384; --amarelo: #FFD000; --lapis: #E8432E;
   --serifa: 'Source Serif', Georgia, serif; --mono: 'Inter', 'Segoe UI', system-ui, sans-serif; }
@@ -49,8 +49,8 @@ h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px;
 .comprar { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--amarelo); color: var(--tinta);
   font: 700 17px var(--mono); text-decoration: none; padding: 17px 30px; border-radius: 6px; transition: transform .15s, box-shadow .15s; box-shadow: 0 6px 0 #b39200; }
 .comprar { position: relative; overflow: hidden; }
-.comprar::after { content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent); transform: skewX(-20deg); animation: brilho 5s ease-in-out 2.5s infinite; pointer-events: none; }
-@keyframes brilho { 0%, 70% { left: -60%; } 90%, 100% { left: 130%; } }
+.comprar::after { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent); transform: translateX(-150%) skewX(-20deg); animation: brilho 5s ease-in-out 2.5s infinite; pointer-events: none; }
+@keyframes brilho { 0%, 70% { transform: translateX(-150%) skewX(-20deg); } 90%, 100% { transform: translateX(325%) skewX(-20deg); } }
 .comprar:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #b39200; }
 .comprar:active { transform: translateY(4px); box-shadow: 0 2px 0 #b39200; }
 .comprar .seta { transition: transform .15s; }
@@ -67,7 +67,7 @@ h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px;
 /* top bar + launch strip */
 .faixa { background: var(--amarelo); color: var(--tinta); font: 600 13px var(--mono); text-align: center; padding: 8px 16px; }
 .faixa[hidden] { display: none; }
-.barra { position: sticky; top: 0; z-index: 20; background: rgba(15,14,13,.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: var(--papel); border-bottom: 1px solid #24211d; }
+.barra { position: sticky; top: 0; z-index: 20; background: #0f0e0d; color: var(--papel); border-bottom: 1px solid #24211d; }
 .barra .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
 .barra .logo { display: flex; align-items: center; gap: 10px; font: 600 14px var(--mono); text-decoration: none; }
 .barra .logo img { width: 26px; filter: invert(1); }
@@ -194,7 +194,7 @@ h2 { font-size: clamp(32px, 5.2vw, 50px); margin: 10px 0 18px; max-width: 820px;
 
 /* tap to guess */
 .dica-toque { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px;
-  background: rgba(15,14,13,.82); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--papel); font: 600 13px var(--mono); white-space: nowrap; pointer-events: none; transition: opacity .4s, transform .4s; }
+  background: rgba(15,14,13,.88); color: var(--papel); font: 600 13px var(--mono); white-space: nowrap; pointer-events: none; transition: opacity .4s, transform .4s; }
 .dica-toque svg { width: 18px; height: 18px; color: var(--amarelo); animation: toque 1.6s ease-in-out infinite; }
 @keyframes toque { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 .foto.respondeu .dica-toque, .foto.mostrando .dica-toque, .foto.comparando .dica-toque { opacity: 0; transform: translateX(-50%) translateY(8px); }
@@ -337,7 +337,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
 /* mobile buy bar */
 .barra-compra { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: none; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: rgba(15,14,13,.96); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: var(--papel); border-top: 1px solid #2c2925; transform: translateY(110%); transition: transform .3s; }
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: #0f0e0d; color: var(--papel); border-top: 1px solid #2c2925; transform: translateY(110%); transition: transform .3s; }
 .barra-compra.on { transform: none; }
 .barra-compra .p { font: 700 20px var(--mono); }
 .barra-compra .p s { font-size: 14px; color: var(--cinza); margin-left: 6px; font-weight: 400; }
@@ -393,9 +393,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="selos"><span>112 pages</span><span>16 real photographs</span><span>10 minutes a day</span></div>
     </div>
     <div class="pilha">
-      <img class="p1" src="img/caso8_2.jpg" width="900" height="1350" alt="">
-      <img class="p2" src="img/caso3_3.jpg" width="900" height="1350" alt="">
-      <img class="capa" src="img/capa.jpg" width="900" height="1350" alt="Cover of 16 Tricks Your Eye Never Notices">
+      <img class="p1" src="img/caso8_2.webp" width="900" height="1350" alt="">
+      <img class="p2" src="img/caso3_3.webp" width="900" height="1350" alt="">
+      <img class="capa" fetchpriority="high" src="img/capa.webp" width="900" height="1350" alt="Cover of 16 Tricks Your Eye Never Notices">
       <div class="af" aria-hidden="true"><i></i><i></i><i></i><i></i><span>AF LOCKED</span></div>
     </div>
   </div>
@@ -414,8 +414,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="revela">
       <div class="quadro">
         <div class="foto" data-foto>
-          <img src="img/demo.jpg" width="1100" height="1100" alt="In the waiting room of the Union Station, Chicago, 1943, by Jack Delano">
-          <img class="sem" src="img/demo_sem.jpg" width="1100" height="1100" alt="">
+          <img src="img/demo.webp" width="1100" height="1100" alt="In the waiting room of the Union Station, Chicago, 1943, by Jack Delano">
+          <img class="sem" src="img/demo_sem.webp" width="1100" height="1100" alt="">
           <div class="holofote"><i></i></div>
           <svg class="percurso" viewBox="0 0 100 100" aria-hidden="true" data-percurso></svg>
           <div class="mira-af" aria-hidden="true"><div class="c"><span></span><span></span><span></span><span></span></div><b>AF LOCKED</b></div>
@@ -456,11 +456,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <p class="lead">Every day follows the same path, so you always know where you are.</p>
     </div>
     <div class="trilho">
-      <figure><img src="img/caso1_1.jpg" width="900" height="1350" loading="lazy" alt="Day 1 opening page"><figcaption><b><i>1</i>The question</b>A famous photo and something you didn't notice.</figcaption></figure>
-      <figure><img src="img/caso8_2.jpg" width="900" height="1350" loading="lazy" alt="Eye path page"><figcaption><b><i>2</i>Where your eye travels</b>The exact path your eye took, numbered, and the rule in one line.</figcaption></figure>
-      <figure><img src="img/caso3_3.jpg" width="900" height="1350" loading="lazy" alt="Details page"><figcaption><b><i>3</i>The details</b>What hides in the corners, and the real story behind the picture.</figcaption></figure>
-      <figure><img src="img/caso1_4.jpg" width="900" height="1350" loading="lazy" alt="Test and mission page"><figcaption><b><i>4</i>Test the trick</b>The same photo with the trick removed, then a mission for your phone.</figcaption></figure>
-      <figure><img src="img/caso4_5.jpg" width="900" height="1350" loading="lazy" alt="Notebook page"><figcaption><b><i>5</i>Your notebook</b>Write the rule, say it in your words, sketch it, shoot it.</figcaption></figure>
+      <figure><img src="img/caso1_1.webp" width="900" height="1350" loading="lazy" alt="Day 1 opening page"><figcaption><b><i>1</i>The question</b>A famous photo and something you didn't notice.</figcaption></figure>
+      <figure><img src="img/caso8_2.webp" width="900" height="1350" loading="lazy" alt="Eye path page"><figcaption><b><i>2</i>Where your eye travels</b>The exact path your eye took, numbered, and the rule in one line.</figcaption></figure>
+      <figure><img src="img/caso3_3.webp" width="900" height="1350" loading="lazy" alt="Details page"><figcaption><b><i>3</i>The details</b>What hides in the corners, and the real story behind the picture.</figcaption></figure>
+      <figure><img src="img/caso1_4.webp" width="900" height="1350" loading="lazy" alt="Test and mission page"><figcaption><b><i>4</i>Test the trick</b>The same photo with the trick removed, then a mission for your phone.</figcaption></figure>
+      <figure><img src="img/caso4_5.webp" width="900" height="1350" loading="lazy" alt="Notebook page"><figcaption><b><i>5</i>Your notebook</b>Write the rule, say it in your words, sketch it, shoot it.</figcaption></figure>
     </div>
     <p class="dica">Swipe →</p>
   </div>
@@ -514,9 +514,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <h2>A book that checks if you really learned it</h2>
     </div>
     <div class="dentro revela">
-      <figure><img src="img/checkpoint4.jpg" width="900" height="1350" loading="lazy" alt="Checkpoint page"><figcaption><b>3 checkpoints</b>After Days 4, 8 and 12: details from earlier photos. Which day, and what job do they do?</figcaption></figure>
-      <figure><img src="img/prova2_q.jpg" width="900" height="1350" loading="lazy" alt="Final test page"><figcaption><b>A final test</b>Three photos you've never seen in the book, with a full answer key and a score out of 12.</figcaption></figure>
-      <figure><img src="img/fichas1.jpg" width="900" height="1350" loading="lazy" alt="Field Guide page"><figcaption><b>The Field Guide</b>Every trick on a card: what it does, how to spot it in 3 seconds, and the phone recipe.</figcaption></figure>
+      <figure><img src="img/checkpoint4.webp" width="900" height="1350" loading="lazy" alt="Checkpoint page"><figcaption><b>3 checkpoints</b>After Days 4, 8 and 12: details from earlier photos. Which day, and what job do they do?</figcaption></figure>
+      <figure><img src="img/prova2_q.webp" width="900" height="1350" loading="lazy" alt="Final test page"><figcaption><b>A final test</b>Three photos you've never seen in the book, with a full answer key and a score out of 12.</figcaption></figure>
+      <figure><img src="img/fichas1.webp" width="900" height="1350" loading="lazy" alt="Field Guide page"><figcaption><b>The Field Guide</b>Every trick on a card: what it does, how to spot it in 3 seconds, and the phone recipe.</figcaption></figure>
     </div>
     <ul class="lista revela">
       <li>16 phone missions, one photo each</li>
@@ -588,7 +588,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
 <section class="escuro final">
   <div class="wrap revela">
-    <div class="mini"><img src="img/capa.jpg" width="900" height="1350" loading="lazy" alt=""><div class="af" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
+    <div class="mini"><img src="img/capa.webp" width="900" height="1350" loading="lazy" alt=""><div class="af" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
     <h2>Your eye has been steered your whole life. Sixteen days to see how.</h2>
     <div class="relogio" data-relogio hidden></div>
     <div class="preco" data-preco></div>
